@@ -1,0 +1,270 @@
+@import url(global.css);
+
+body{
+  background-color: var(--bg) ;
+  color: var(--white);
+}
+
+/*Navbar*/
+.topbar{
+  background-color: var(--dark);
+  width: 100%;
+  height: 80px; 
+  top: 0;
+  position: fixed;
+  padding: 0 20px ;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--light);
+  z-index: 1;
+}
+
+.topbar a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo{
+  height: 80px;
+  width: auto;
+}
+
+
+.logout{
+  color: var(--light);
+  font-size: 25px;
+}
+
+.logout:hover {
+  color: var(--white);
+}
+
+/*SideBar*/
+.sidebar{
+  background-color: var(--dark);
+  border: 1px solid var(--light);
+  width: 250px;
+  height: 100vh;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  padding-top: 50px;
+  justify-items: center;
+}
+
+.nav-links a {
+  display: block;
+  color: var(--light);
+  text-decoration: none;
+  padding: 15px 20px;
+  font-size: 20px;
+  margin-bottom: 50px;
+}
+
+.nav-links a:hover {
+  background-color: var(--gray);
+  color: var(--white);
+  border-radius: 10px;
+  transform: scale(1.02);
+}
+
+/*Main*/
+main {
+  margin-top: 80px;    
+  margin-left: 250px;  
+  padding: 30px;
+  justify-items: center;
+  text-align: center;
+}
+
+h2{
+    color: var(--white);
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+p{
+  color: var(--light);
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.icon {
+  font-size: 22px;
+  color: var(--white);
+  margin: 0 5px;
+}
+
+.icon:hover {
+  color: var(--light);
+}
+
+/*Tabela*/
+table{
+    width: 80%;
+    border-collapse: separate;
+    border-spacing: 0 15px; 
+    margin-bottom: 20px;
+}
+
+thead th{
+    padding: 15px;
+    height: 80px;
+    color: var(--white);
+    border-top: 1px solid var(--light);
+    border-bottom: 1px solid var(--light);
+}
+
+thead th:first-child{
+    border-left: 1px solid var(--light);
+    border-radius: 15px 0 0 15px;
+}
+
+thead th:last-child{
+    border-right: 1px solid var(--light);
+    border-radius: 0 15px 15px 0;
+}
+
+tbody tr{
+    height: 80px;
+    background-color: var(--dark);
+}
+
+td{
+    height: 80px;
+    padding: 15px;
+    border-top: 1px solid var(--light);
+    border-bottom: 1px solid var(--light);
+}
+
+td:first-child{
+    border-left: 1px solid var(--light);
+    border-radius: 15px 0 0 15px;
+}
+
+td:last-child{
+    border-right: 1px solid var(--light);
+    border-radius: 0 15px 15px 0;
+}
+
+tbody tr:hover{
+    background-color: var(--gray);
+}
+
+select{
+    background: transparent;
+    border: 1px solid var(--light);
+    border-radius: 20px;
+    padding: 8px 10px;
+    font-size: 15px;
+    color: var(--light);
+    cursor: pointer;
+    text-align: center;
+}
+
+select.confirmado{ 
+    color: var(--green); 
+    border-color: var(--green); 
+
+}
+select.cancelado{ 
+    color: var(--cancel); 
+    border-color: var(--cancel); 
+}
+
+select.finalizado{ 
+    color: var(--blue); 
+    border-color: var(--blue); 
+}
+
+select option{
+    background: var(--dark);
+    color: var(--white);
+}
+
+/*Filtros*/
+.box-filter {
+    background-color: var(--dark);
+    border-radius: 15px;
+    padding: 40px;
+    margin-bottom: 30px;
+    display: flex;
+    gap: 30px; 
+}
+
+.filter {
+    display: flex;
+    flex-direction: column; 
+    flex: 1; 
+}
+
+.filter label {
+    margin-bottom: 8px;
+    color: var(--white);
+}
+
+.btn {
+    background-color: var(--red);
+    color: var(--white);
+    border-radius: 15px;
+    padding: 15px 20px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/*Calendário*/
+#calendar {
+  width: 80%;
+}
+
+.fc {
+  background-color: var(--dark);
+  padding: 10px;
+}
+
+.fc-toolbar-title {
+  color:var(--white);
+}
+
+.fc-daygrid-day-number {
+  color: var(--light);
+}
+
+.fc-day-sun,
+.fc-day-sat {
+  color: var(--red);
+}
+
+/*Dashboard*/
+.cards-dash {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.card {
+  background-color: var(--dark);
+  border-radius: 15px;
+  padding: 20px;
+  width: 250px;
+  justify-items: center;
+  text-align: center;
+}
+
+.icon-dash {
+  color: var(--red);
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.chart-container {
+  width: 80%; 
+  margin: 50px auto; 
+  background: var(--dark);  
+  padding: 20px;  
+  border-radius: 15px; 
+  border: 1px solid var(--light);
+}

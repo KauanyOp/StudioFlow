@@ -1,0 +1,20 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/*Paleta de cores*/
+:root {
+  --bg: #000;
+  --dark: #0c0c0c;       
+  --red: #9d0317;
+  --gray: #2a2a2a;
+  --light: #c0c0c0;
+  --white: #fff;
+  --cancel: #ff4d4d;
+  --blue: #006eff;
+  --green: #00ff55;
+}
+

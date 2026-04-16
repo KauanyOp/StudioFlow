@@ -1,0 +1,227 @@
+@import url(global.css);
+
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("../../assets/img/fundo-bg.png") center/cover no-repeat;
+  }
+
+.container {
+  position: relative;
+  z-index: 1;
+  background: var(--bg);
+  padding: 50px 60px;
+  border-radius: 16px;
+  width: 1100px;
+  height: 700px;
+  text-align: center;
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px auto;
+}
+
+.logo-wrapper img {
+  width: 260px;
+  height: 230px;
+}
+
+.subtitle {
+  color: var(--white);
+  font-size: 25px;
+  font-weight: 300;
+  margin-bottom: 35px;
+}
+
+.cards {
+  display: flex;
+  gap: 120px;
+  justify-content: center;
+}
+
+.card {
+  background-color: var(--dark);
+  border: 3px solid var(--gray);
+  border-radius: 15px;
+  padding: 50px;
+  text-align: left;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  width: 400px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+ }
+
+ .card:hover {
+  transform: translateY(-6px);
+  border-color: var(--light);
+}
+
+.icon {
+  font-size: 50px;
+  color: var(--red);
+  margin-bottom: 10px;
+}
+
+.card-title {
+  color: var(--white);
+  font-size: 25px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  text-decoration: none;
+}
+
+.card-subtitle {
+  color: var(--light);
+  font-size: 25px;
+  text-decoration: none;  
+}
+
+/*Formulários*/
+nav{
+  background-color: var(--bg);
+  width: 100%;
+  height: 10%;
+  position: fixed;
+  top: 0;
+  display: flex;
+}
+
+.logo{
+  width: 100%;
+  height: 100%;
+  right: 0;
+}
+
+form {
+  background: var(--bg);
+  border-radius: 15px;
+  width: 500px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10% 0;
+}
+
+form a {
+  color: var(--red);
+  font-size: 20px;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+h2{
+  color: var(--white);
+  font-size: 30px;
+  text-align: center;
+  margin-bottom: 15px;
+} 
+
+label {
+  font-size: 20px;
+  margin-bottom: 6px;
+  color: var(--light);
+}
+
+input {
+  height: 50px;
+  width: 80%;
+  border-radius: 20px;
+  border: 1px solid var(--gray);
+  background: var(--dark);
+  padding: 0 15px;
+  color: var(--white);
+  margin-bottom: 30px;
+}
+
+input:focus {
+  border-color: var(--light);
+}
+
+select {
+  height: 50px;
+  width: 80%;
+  border-radius: 20px;
+  border: 1px solid var(--gray);
+  background: var(--dark);
+  padding: 0 15px;
+  color: var(--white);
+  margin-bottom: 30px;
+}
+
+select:focus {
+  border-color: var(--light);
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 40px;
+  border: none;
+  border-radius: 15px;
+  background: var(--red);
+  color: var(--white);
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #5f101b;
+}
+
+/*Confirmação*/
+.container-confirm{
+  background: var(--bg);
+  padding: 50px 60px;
+  border-radius: 16px;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.card-confirm {
+  background-color: var(--dark);
+  height: 60%;
+  width: 50%;
+  border: 1px solid var(--gray);
+  border-radius: 15px;
+  padding: 50px;
+  margin: 50px;
+}
+
+.info-confirm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+  font-size: 20px;
+  margin-bottom: 6px;
+  color: var(--red);
+}
+
+p {
+  font-size: 20px;
+  margin-bottom: 6px;
+  color: var(--light);
+}
+
+
+

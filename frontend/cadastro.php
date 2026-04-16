@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Agendamento</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav>
+    <a href="index.php"><img class="logo" src="../assets/img/logo/logo-white.png" alt="StudioFlow Logo"></a>
+</nav>
+
+<main>
+    <form action="login.php" method="POST">
+        <h2>Cadastro</h2>
+        <label>Nome Completo:</label>
+        <input type="text" name="nome" id="nome" placeholder="Digite seu nome">
+        <label>Email:</label>
+        <input type="email" name="email" id="email" placeholder="Digite seu email">
+        <label>Senha:</label>
+        <input type="password" name="senha" id="senha" placeholder="Digite sua senha">
+        <button type="submit">Enviar</button>
+    </form>
+</main>
+
+</body>
+</html>

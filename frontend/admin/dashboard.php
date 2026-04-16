@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Dashboard</title>
+</head>
+<body>
+    <header>
+        <nav class="topbar">
+            <a href="../index.php"><img src="../../assets/img/logo/logo-white.png" alt="StudioFlow" class="logo"></a>
+            <a href="../login.php" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+        </nav>
+    </header>
+    <aside>
+        <nav class="sidebar">
+            <div class="nav-links">
+                <a href="calendario.php"><i class="fa-regular fa-calendar icon"></i> Calendário</a>
+                <a href="agendamentos.php"><i class="fa-regular fa-file-lines icon"></i> Agendamentos</a>
+                <a href="historico.php"><i class="fa-solid fa-clock-rotate-left icon"></i> Histórico</a>
+                <a href="dashboard.php" style="color: var(--red);"><i class="fa-solid fa-chart-line icon" style="color: var(--red);"></i> Dashboard</a>
+                <a href="profissionais.php"><i class="fa-regular fa-user icon"></i> Profissionais</a>
+            </div>
+        </nav>
+    </aside>
+
+    <main>
+        <h2>Dashboard</h2>
+        <p>Visão geral das suas estatísticas</p>
+        <div class="cards-dash">
+            <div class="card">
+                <i class="fa-regular fa-calendar icon-dash"></i>
+                <p>Total Agendamentos</p>
+                <h2>150</h2>
+            </div>
+            <div class="card">
+                <i class="fa-regular fa-square-check icon-dash"></i>
+                <p>Atendimentos Concluídos</p>
+                <h2>100</h2>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-chart-line icon-dash"></i>
+                <p>Atendimentos Mensais</p>
+                <h2>50</h2>
+            </div>
+        </div>
+
+        <div class="chart-container">
+          <canvas id="grafico"></canvas>
+        </div>
+        <script>
+            const ctx = document.getElementById('grafico');
+
+            new Chart(ctx, {
+              type: 'bar',
+              data: {
+                labels: [
+                  'Total Agendamentos',
+                  'Concluídos',
+                  'Atendimentos Mensais'
+                ],
+
+                datasets: [{
+                  data: [150, 100, 50], 
+
+                  backgroundColor: [
+                    '#80162483',  
+                    'rgba(255, 255, 255, 0.2)',  
+                    'rgba(255, 99, 132, 0.2)'   
+                  ],
+
+                  borderColor: [
+                    '#a6051a',
+                    '#c0c0c0',
+                    '#ff4d4d'
+                  ],
+
+                  borderWidth: 1
+                }]
+              },
+
+              options: {
+                plugins: {
+                  legend: {
+                    display: false
+                  }
+                },
+                scales: {
+                  x: {
+                    ticks: {
+                      color: 'white'
+                    },
+                    grid: {
+                      color: 'rgba(255,255,255,0.1)'
+                    }
+                  },
+                  y: {
+                    beginAtZero: true,
+                    ticks: {
+                      color: 'white'
+                    },
+                    grid: {
+                      color: 'rgba(255,255,255,0.1)'
+                    }
+                  }
+                }
+              }
+            });
+        </script>
+
+</main>
+</body>
+</html>
