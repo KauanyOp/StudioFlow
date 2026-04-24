@@ -17,11 +17,11 @@
     <form action="login.php" method="POST">
         <h2>Cadastro</h2>
         <label>Nome Completo:</label>
-        <input type="text" name="nome" id="nome" placeholder="Digite seu nome">
+        <input type="text" name="nome" id="nome" placeholder="Digite seu nome" required>
         <label>Email:</label>
-        <input type="email" name="email" id="email" placeholder="Digite seu email">
+        <input type="email" name="email" id="email" placeholder="Digite seu email" required>
         <label>Senha:</label>
-        <input type="password" name="senha" id="senha" placeholder="Digite sua senha">
+        <input type="password" name="senha" id="senha" placeholder="Digite sua senha" required>
         <button type="submit">Enviar</button>
     </form>
 </main>

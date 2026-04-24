@@ -36,6 +36,7 @@
                     <th>Nome</th>
                     <th>Especialidade</th>
                     <th>Contato</th>
+                    <th>Status</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -44,6 +45,12 @@
                     <td>Kauany Oliveira</td>
                     <td>Tatuagem</td>
                     <td>(11) 99999-9999</td>
+                     <td>
+                        <select name="status" class="status">
+                            <option value="ativo" class=" ativo">Ativo</option>
+                            <option value="inativo" class=" inativo">Inativo</option>
+                        </select>
+                    </td>
                     <td>
                         <a href="editar-profissional.php?id=1" ><i class="fa-regular fa-pen-to-square icon"></i></a>
                         <a href="excluir-profissional.php?id=1"><i class="fa-regular fa-trash-can icon" style="color: var(--cancel);"></i></a>
@@ -54,6 +61,12 @@
                     <td>Remoção</td>
                     <td>(11) 98888-8888</td>  
                     <td>
+                        <select name="status" class="status">
+                            <option value="ativo" class=" ativo">Ativo</option>
+                            <option value="inativo" class=" inativo">Inativo</option>
+                        </select>
+                    </td>
+                    <td>
                         <a href="editar-profissional.php?id=2" ><i class="fa-regular fa-pen-to-square icon"></i></a>
                         <a href="excluir-profissional.php?id=2"><i class="fa-regular fa-trash-can icon" style="color: var(--cancel);"></i></a>
                     </td>
@@ -63,7 +76,13 @@
                     <td>Flash Tattoo</td>
                     <td>(11) 97777-7777</td>
                     <td>
-                        <a href="editar-profissional.php?id=3" ><i class="fa-regular fa-pen-to-square icon"></i></a>
+                        <select name="status" class="status">
+                            <option value="ativo" class=" ativo">Ativo</option>
+                            <option value="inativo" class=" inativo">Inativo</option>
+                        </select>
+                    </td>
+                    <td>
+                        <a href="editar-profissional.php?id=4" ><i class="fa-regular fa-pen-to-square icon"></i></a>
                         <a href="excluir-profissional.php?id=3"><i class="fa-regular fa-trash-can icon" style="color: var(--cancel);"></i></a>
                     </td>
 
@@ -72,6 +91,11 @@
                     <td>Davi Xavier</td>
                     <td>Cobertura</td>
                     <td>(11) 96666-6666</td>
+                    <td>
+                        <select name="status" class="status">
+                            <option value="ativo" class=" ativo">Ativo</option>
+                            <option value="inativo" class=" inativo">Inativo</option>
+                        </select>
                     <td>
                         <a href="editar-profissional.php?id=4" ><i class="fa-regular fa-pen-to-square icon"></i></a>
                         <a href="excluir-profissional.php?id=4"><i class="fa-regular fa-trash-can icon" style="color: var(--cancel);"></i></a>
@@ -82,5 +106,26 @@
 
         <a href="criar-profissional.php" class="btn">Registrar Profissional</a>
 </main>
+
+<script>
+function aplicarStatus(select){
+  select.classList.remove("ativo", "inativo");
+
+  if(select.value === "ativo"){
+    select.classList.add("confirmado");
+  }
+  else if(select.value === "inativo"){
+    select.classList.add("cancelado");
+  }
+}
+
+document.querySelectorAll("select").forEach(select => {
+  aplicarStatus(select);
+
+  select.addEventListener("change", function() {
+    aplicarStatus(this);
+  });
+});
+</script>
 </body>
 </html>

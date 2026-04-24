@@ -50,8 +50,7 @@
                     <td>14:00</td>
                     <td>(11) 99999-9999</td>
                     <td>
-                        <select name="status" id="status">
-                            <option value="" class=" "></option>
+                        <select name="status" class="status">
                             <option value="Confirmado" class=" confirmado">Confirmado</option>
                             <option value="Finalizado" class=" finalizado">Finalizado</option>
                             <option value="Cancelado" class=" cancelado">Cancelado</option>
@@ -65,8 +64,7 @@
                     <td>10:00</td>
                     <td>(11) 98888-8888</td>
                     <td>
-                        <select name="status" id="status">
-                            <option value="" class=" "></option>
+                        <select name="status" class="status">
                             <option value="Confirmado" class=" confirmado">Confirmado</option>
                             <option value="Finalizado" class=" finalizado">Finalizado</option>
                             <option value="Cancelado" class=" cancelado">Cancelado</option>
@@ -80,8 +78,7 @@
                     <td>16:00</td>
                     <td>(11) 97777-7777</td>
                     <td>
-                        <select name="status" id="status">
-                            <option value="" class=" "></option>
+                        <select name="status" class="status">
                             <option value="Confirmado" class=" confirmado">Confirmado</option>
                             <option value="Finalizado" class=" finalizado">Finalizado</option>
                             <option value="Cancelado" class=" cancelado">Cancelado</option>
@@ -95,8 +92,7 @@
                     <td>11:00</td>
                     <td>(11) 96666-6666</td>
                     <td>
-                        <select name="status" id="status">
-                            <option value="" class=" "></option>
+                        <select name="status" class="status">
                             <option value="Confirmado" class=" confirmado">Confirmado</option>
                             <option value="Finalizado" class=" finalizado">Finalizado</option>
                             <option value="Cancelado" class=" cancelado">Cancelado</option>
@@ -108,19 +104,28 @@
 </main>
 
 <script>
-document.querySelectorAll("select").forEach(select => {
-  select.addEventListener("change", function() {
-    this.classList.remove("confirmado", "cancelado", "finalizado");
+function aplicarStatus(select){
+  select.classList.remove("confirmado", "cancelado", "pendente", "finalizado");
 
-    if(this.value === "Confirmado"){
-      this.classList.add("confirmado");
-    }
-    else if(this.value === "Cancelado"){
-      this.classList.add("cancelado");
-    }
-    else if(this.value === "Finalizado"){
-      this.classList.add("finalizado");
-    }
+  if(select.value === "Confirmado"){
+    select.classList.add("confirmado");
+  }
+  else if(select.value === "Cancelado"){
+    select.classList.add("cancelado");
+  }
+  else if(select.value === "Pendente"){
+    select.classList.add("pendente");
+  }
+  else if(select.value === "Finalizado"){
+    select.classList.add("finalizado");
+  }
+}
+
+document.querySelectorAll("select").forEach(select => {
+  aplicarStatus(select);
+
+  select.addEventListener("change", function() {
+    aplicarStatus(this);
   });
 });
 </script>

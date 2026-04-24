@@ -16,10 +16,10 @@
 <main>
     <form action="admin/calendario.php" method="POST">
         <h2>Login</h2>
-        <label>Email:</label>
-        <input type="email" name="email" id="email" placeholder="Digite seu email">
-        <label>Senha:</label>
-        <input type="password" name="senha" id="senha" placeholder="Digite sua senha">
+        <label>Email</label>
+        <input type="email" name="email" id="email" placeholder="Digite seu email" required>
+        <label>Senha</label>
+        <input type="password" name="senha" id="senha" placeholder="Digite sua senha" required>
         <button type="submit">Entrar</button>
         <p>Primeiro acesso? <a href="cadastro.php">Cadastre-se</a></p>
     </form>

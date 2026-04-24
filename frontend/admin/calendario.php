@@ -70,11 +70,10 @@
                     <td>13/05/2026</td>
                     <td>14:00</td>
                     <td>
-                        <select name="status" id="status">
-                            <option value="" class=" "></option>
-                            <option value="Confirmado" class=" confirmado">Confirmado</option>
-                            <option value="Finalizado" class=" finalizado">Finalizado</option>
-                            <option value="Cancelado" class=" cancelado">Cancelado</option>
+                        <select name="status" class="status">
+                            <option value="Pendente" class="pendente">Pendente</option>
+                            <option value="Confirmado" class="confirmado">Confirmado</option>
+                            <option value="Cancelado" class="cancelado">Cancelado</option>
                         </select>
                     </td>
                     <td>
@@ -89,11 +88,10 @@
                     <td>14/05/2026</td>
                     <td>10:00</td>
                     <td>
-                        <select name="status" id="status">
-                            <option value="" class=" "></option>
-                            <option value="Confirmado" class=" confirmado">Confirmado</option>
-                            <option value="Finalizado" class=" finalizado">Finalizado</option>
-                            <option value="Cancelado" class=" cancelado">Cancelado</option>
+                        <select name="status" class="status">
+                            <option value="Pendente" class="pendente">Pendente</option>
+                            <option value="Confirmado" class="confirmado">Confirmado</option>
+                            <option value="Cancelado" class="cancelado">Cancelado</option>
                         </select> 
                     </td>
                     <td>
@@ -106,5 +104,31 @@
 
         <a href="criar-agendamento.php" class="btn">Criar Agendamento</a>
 </main>
+<script>
+function aplicarStatus(select){
+  select.classList.remove("confirmado", "cancelado", "pendente", "finalizado");
+
+  if(select.value === "Confirmado"){
+    select.classList.add("confirmado");
+  }
+  else if(select.value === "Cancelado"){
+    select.classList.add("cancelado");
+  }
+  else if(select.value === "Pendente"){
+    select.classList.add("pendente");
+  }
+  else if(select.value === "Finalizado"){
+    select.classList.add("finalizado");
+  }
+}
+
+document.querySelectorAll("select").forEach(select => {
+  aplicarStatus(select);
+
+  select.addEventListener("change", function() {
+    aplicarStatus(this);
+  });
+});
+</script>
 </body>
 </html>

@@ -162,7 +162,8 @@ select{
     color: var(--light);
     cursor: pointer;
     text-align: center;
-}
+    -webkit-appearance: none;
+} 
 
 select.confirmado{ 
     color: var(--green); 
@@ -177,6 +178,10 @@ select.cancelado{
 select.finalizado{ 
     color: var(--blue); 
     border-color: var(--blue); 
+}
+select.pendente{ 
+    color: var(--yellow); 
+    border-color: var(--yellow); 
 }
 
 select option{

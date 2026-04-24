@@ -18,9 +18,9 @@
   <h1 class="subtitle">Conectando ideias, horários e artistas num único lugar</h1>
   <div class="cards">
     <div class="card">
-      <a href="form-dados-cliente.php" class="icon"><i class="fa-regular fa-calendar"></i></a>
-      <a href="form-dados-cliente.php" class="card-title">Área do Cliente</a>
-      <a href="form-dados-cliente.php" class="card-subtitle">Agendar Atendimento</a>
+      <a href="form-agendamento.php" class="icon"><i class="fa-regular fa-calendar"></i></a>
+      <a href="form-agendamento.php" class="card-title">Área do Cliente</a>
+      <a href="form-agendamento.php" class="card-subtitle">Agendar Atendimento</a>
     </div>
     <div class="card">
       <a href="login.php" class="icon"><i class="fa-solid fa-key"></i></a>
