@@ -1,10 +1,11 @@
+<?php ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agendamentos</title>
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../../assets/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     
@@ -12,7 +13,7 @@
 <body>
     <header>
         <nav class="topbar">
-            <a href="calendario.php"><img src="../../assets/img/logo/logo-white.png" alt="StudioFlow" class="logo"></a>
+            <a href="../index.php"><img src="../../assets/img/logo/logo-white.png" alt="StudioFlow" class="logo"></a>
             <a href="../login.php" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
         </nav>
     </header>

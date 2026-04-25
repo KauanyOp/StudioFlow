@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Histórico</title>
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../../assets/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav class="topbar">
-            <a href="calendario.php"><img src="../../assets/img/logo/logo-white.png" alt="StudioFlow" class="logo"></a>
+            <a href="../index.php"><img src="../../assets/img/logo/logo-white.png" alt="StudioFlow" class="logo"></a>
             <a href="../login.php" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
         </nav>
     </header>
@@ -32,9 +32,9 @@
         <p>Atendimentos concluídos</p>
         <div class="box-filter">
          <div class="filter">
-            <label for="filter">Filtrar por Serviço:</label>
+            <label for="filter">Filtrar por Serviço</label>
             <select id="filter-servico" name="filter-servico">
-                <option value="">Selecione um serviço</option>
+                <option value="" disabled selected>Selecione um serviço</option>
                 <option value="tatuagem">Tatuagem</option>
                 <option value="remoção">Remoção</option>
                 <option value="flash-tattoo">Flash Tattoo</option>
@@ -42,9 +42,9 @@
             </select>
          </div>
         <div class="filter">
-            <label for="filter">Filtrar por Cliente:</label>
+            <label for="filter">Filtrar por Cliente</label>
             <select id="filter-cliente" name="filter-cliente">
-                <option value="">Selecione um cliente</option>
+                <option value="" disabled selected>Selecione um cliente</option>
                 <option value="kauany-oliveira">Kauany Oliveira</option>
                 <option value="giovanna-rodrigues">Giovanna Rodrigues</option>
                 <option value="paulo-henrique">Paulo Henrique</option>

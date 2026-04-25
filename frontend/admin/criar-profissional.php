@@ -1,9 +1,10 @@
+<?php ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <title>Registrar Profissional</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
@@ -12,13 +13,17 @@
 <main>
     <form action="profissionais.php" method="POST">
         <h2>Registrar Profissional</h2>
-        <label>Nome Completo:</label>
+        <label>Nome Completo</label>
         <input type="text" name="nome" id="nome" placeholder="Digite seu nome">
-        <label>Contato:</label>
+        <label>Email</label>
+        <input type="email" name="email" id="email" placeholder="Digite seu email" required>
+        <label>Senha</label>
+        <input type="password" name="senha" id="senha" placeholder="Digite sua senha" required>
+        <label>Contato</label>
         <input type="text" name="contato" id="contato" placeholder="Telefone ou WhatsApp">
         <label>Selecione a Especialidade</label>
         <select id="servico" name="servico" required>
-          <option value="">Selecione</option>
+          <option value="" disabled selected>Selecione</option>
           <option value="tattoo">Tatto Personalizada</option>
           <option value="flash">Flash Tattoo</option>
           <option value="cobertura">Cobertura</option>

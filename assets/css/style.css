@@ -120,6 +120,14 @@ form {
   margin: 50px;
 }
 
+.tela {
+    display: none;
+}
+
+.tela.ativa {
+    display: block;
+}
+
 form a {
   color: var(--red);
   font-size: 20px;
@@ -141,6 +149,7 @@ label {
 }
 
 input {
+  font-size: 15px;
   height: 50px;
   width: 80%;
   border-radius: 20px;
@@ -155,23 +164,41 @@ input:focus {
   border-color: var(--light);
 }
 
+input[type="date"] {
+  color-scheme: dark; 
+  color: #687575;
+}
+
+input[type="date"]:valid {
+  color: var(--white);
+}
+
 select {
   height: 50px;
   width: 80%;
+  font-size: 15px;
   border-radius: 20px;
   border: 1px solid var(--gray);
   background: var(--dark);
   padding: 0 15px;
-  color: var(--white);
+  color: #687575;
   margin-bottom: 30px;
+}
+
+select:valid {
+  color: var(--white);
 }
 
 select:focus {
   border-color: var(--light);
 }
 
+#campos-profissional {
+  width: 100%;
+}
+
 button {
-  margin-top: 10px;
+  margin: 0 20px;
   padding: 10px 40px;
   border: none;
   border-radius: 15px;
@@ -232,11 +259,3 @@ p {
   color: var(--light);
 }
 
-
-.tela {
-    display: none;
-}
-
-.tela.ativa {
-    display: block;
-}
