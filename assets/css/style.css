@@ -259,3 +259,7 @@ p {
   color: var(--light);
 }
 
+.erro{
+  color: var(--red);
+}
+

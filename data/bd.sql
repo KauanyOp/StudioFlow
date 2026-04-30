@@ -22,16 +22,7 @@ CREATE TABLE profissional (
 CREATE TABLE servicos (
     id_servicos INT AUTO_INCREMENT PRIMARY KEY,
     tipo_servico ENUM('tatuagem', 'piercing') NOT NULL,
-    estilo ENUM(
-        'fineline',
-        'realista',
-        'old_school',
-        'flash_tattoo',
-        'anime',
-        'lettering',
-        'blackout',
-        'cobertura'
-    ),
+    estilo ENUM('fineline','realista','old_school','flash_tattoo','anime','lettering','blackout','cobertura'),
     regiao VARCHAR(50) NOT NULL
 );
 

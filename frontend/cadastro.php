@@ -1,4 +1,6 @@
-<?php ?>
+<?php 
+
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -15,7 +17,7 @@
 </nav>
 
 <main>
-    <form action="login.php" method="POST">
+    <form action="../backend/cadastrar.php" method="POST">
         <h2>Cadastro</h2>
         <label>Nome Completo</label>
         <input type="text" name="nome" id="nome" placeholder="Digite seu nome" required>
