@@ -17,7 +17,7 @@ body{
   justify-content: space-between;
   align-items: center;
   border: 1px solid var(--light);
-  z-index: 1;
+  z-index: 9999;
 }
 
 .topbar a {
@@ -222,6 +222,7 @@ select option{
 /*Calendário*/
 #calendar {
   width: 80%;
+  z-index: 1;
 }
 
 .fc {

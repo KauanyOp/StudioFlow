@@ -1,4 +1,15 @@
-<?php ?>
+<?php
+  session_start();
+  $nomeCompleto = $_SESSION["nome"];
+  $primeiroNome = strtok($nomeCompleto, " ");
+
+  if(!$_SESSION["logado"]){
+    $_SESSION["erro"] = 2;
+    header("Location:../login.php");
+  }else{
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,13 +20,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js"></script>
+    <link rel="shortcut icon" href="../../assets/img/icon/favicon.ico" type="image/x-icon">
     <title>Calendário</title>
 </head>
 <body>
     <header>
         <nav class="topbar">
             <a href="../index.php"><img src="../../assets/img/logo/logo-white.png" alt="StudioFlow" class="logo"></a>
-            <a href="../login.php" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            <h4>Seja bem-vindo(a) ao Painel de agendamentos, <?php echo $primeiroNome; ?>!</h4>
+            <a href="../../backend/logout.php" class="logout"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
         </nav>
     </header>
     <aside>
@@ -33,7 +46,7 @@
     <main>
         <h2>Calendário</h2>
         <p>Gerencie sua agenda</p>
-        <div id="calendar"></div>
+        <div id="calendar">
         <script>
             document.addEventListener('DOMContentLoaded', function () {
             let calendarEl = document.getElementById('calendar');
@@ -133,3 +146,6 @@ document.querySelectorAll("select").forEach(select => {
 </script>
 </body>
 </html>
+<?php
+  }
+?>
