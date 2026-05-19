@@ -1,5 +1,31 @@
 <?php
+include '../../backend/conexao.php';
+
+$sql = "SELECT 
+            agendamento.id_agendamento,
+            cliente.nome,
+            cliente.contato_cliente,
+            servicos.tipo_servico,
+            agendamento.data_agen,
+            agendamento.horario,
+            agendamento.status_agendamento
+
+        FROM agendamento
+
+        INNER JOIN cliente
+            ON agendamento.id_cliente = cliente.id_cliente
+
+        INNER JOIN servicos
+            ON agendamento.id_servicos = servicos.id_servicos";
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+
+?>
+
+<?php
   session_start();
+  
   $nomeCompleto = $_SESSION["nome"];
   $primeiroNome = strtok($nomeCompleto, " ");
 
@@ -44,78 +70,57 @@
     </aside>
 
     <main>
-        <h2>Calendário</h2>
-        <p>Gerencie sua agenda</p>
-        <div id="calendar">
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-            let calendarEl = document.getElementById('calendar');
-      
-            let calendar = new FullCalendar.Calendar(calendarEl, {
-              initialView: 'dayGridMonth',
-              locale: 'pt-br',
-              headerToolbar: {
-                left: '',
-                center: 'title',
-                right: 'prev,next'
-              }
-            });
-            calendar.render();
-          });
-        </script>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Cliente</th>
-                    <th>Serviço</th>
-                    <th>Data</th>
-                    <th>Horário</th>
-                    <th>Contato</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Kauany Oliveira</td>
-                    <td>Tatuagem</td>
-                    <td>(11) 99999-9999</td>
-                    <td>13/05/2026</td>
-                    <td>14:00</td>
-                    <td>
-                        <select name="status" class="status">
-                            <option value="Pendente" class="pendente">Pendente</option>
-                            <option value="Confirmado" class="confirmado">Confirmado</option>
-                            <option value="Cancelado" class="cancelado">Cancelado</option>
-                        </select>
-                    </td>
-                    <td>
-                        <a href="editar-agendamento.php?id=1" ><i class="fa-regular fa-pen-to-square icon"></i></a>
-                        <a href="excluir-agendamento.php?id=1"><i class="fa-regular fa-trash-can icon" style="color: var(--cancel);"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Giovanna Rodrigues</td>
-                    <td>Remoção</td>
-                    <td>(11) 98888-8888</td>
-                    <td>14/05/2026</td>
-                    <td>10:00</td>
-                    <td>
-                        <select name="status" class="status">
-                            <option value="Pendente" class="pendente">Pendente</option>
-                            <option value="Confirmado" class="confirmado">Confirmado</option>
-                            <option value="Cancelado" class="cancelado">Cancelado</option>
-                        </select> 
-                    </td>
-                    <td>
-                        <a href="editar-agendamento.php?id=2" ><i class="fa-regular fa-pen-to-square icon"></i></a>
-                        <a href="excluir-agendamento.php?id=2"><i class="fa-regular fa-trash-can icon" style="color: var(--cancel);"></i></a>
-                    </td>
-                </tr>
-            </tbody>
+    <h2>Calendário</h2>
+    <p>Gerencie sua agenda</p>
+    <div id="calendar">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        let calendarEl = document.getElementById('calendar');
+  
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          locale: 'pt-br',
+          headerToolbar: {
+            left: '',
+            center: 'title',
+            right: 'prev,next'
+          }
+        });
+        calendar.render();
+      });
+      </script>
+      </div>
+      <table><br>
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Serviço</th>
+            <th>Data</th>
+            <th>Horário</th>
+            <th>Contato</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php while($row = $stmt->fetch()) { ?>
+            <tr>
+              <td><?php echo htmlspecialchars($row['nome']); ?></td>
+              <td><?php echo htmlspecialchars($row['tipo_servico']); ?></td>
+              <td><?php echo date('d/m/Y', strtotime($row['data_agen'])); ?></td>
+              <td><?php echo htmlspecialchars($row['horario']); ?></td>
+              <td><?php echo htmlspecialchars($row['contato_cliente']); ?></td>
+              <td>
+              <select name="status" class="status"data-id="<?php echo $row['id_agendamento']; ?>">
+              <option value="pendente"<?php if($row['status_agendamento'] == 'pendente') echo 'selected'; ?>class="pendente">Pendente</option>
+              <option value="confirmado"<?php if($row['status_agendamento'] == 'confirmado') echo 'selected'; ?>class="confirmado">Confirmado</option>
+              <option value="finalizado"<?php if($row['status_agendamento'] == 'finalizado') echo 'selected'; ?>class="finalizado">Finalizado</option>
+              <option value="cancelado"<?php if($row['status_agendamento'] == 'cancelado') echo 'selected'; ?>class="cancelado">Cancelado</option>
+            </select>
+            </td>
+            </tr>
+            <?php } ?>
+          </tbody>
         </table>
-
         <a href="criar-agendamento.php" class="btn">Criar Agendamento</a>
 </main>
 <script>

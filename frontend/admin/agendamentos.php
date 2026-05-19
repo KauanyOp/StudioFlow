@@ -42,67 +42,49 @@
                     <th>Horário</th>
                     <th>Contato</th>
                     <th>Status</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td>Kauany Oliveira</td>
                     <td>Tatuagem</td>
+                    <td>(11) 99999-9999</td>
                     <td>13/05/2026</td>
                     <td>14:00</td>
-                    <td>(11) 99999-9999</td>
                     <td>
                         <select name="status" class="status">
-                            <option value="Confirmado" class=" confirmado">Confirmado</option>
-                            <option value="Finalizado" class=" finalizado">Finalizado</option>
-                            <option value="Cancelado" class=" cancelado">Cancelado</option>
+                            <option value="Pendente" class="pendente">Pendente</option>
+                            <option value="Confirmado" class="confirmado">Confirmado</option>
+                            <option value="Cancelado" class="cancelado">Cancelado</option>
                         </select>
+                    </td>
+                    <td>
+                        <a href="editar-agendamento.php?id=1" ><i class="fa-regular fa-pen-to-square icon"></i></a>
+                        <a href="excluir-agendamento.php?id=1"><i class="fa-regular fa-trash-can icon" style="color: var(--cancel);"></i></a>
                     </td>
                 </tr>
                 <tr>
                     <td>Giovanna Rodrigues</td>
                     <td>Remoção</td>
+                    <td>(11) 98888-8888</td>
                     <td>14/05/2026</td>
                     <td>10:00</td>
-                    <td>(11) 98888-8888</td>
                     <td>
                         <select name="status" class="status">
-                            <option value="Confirmado" class=" confirmado">Confirmado</option>
-                            <option value="Finalizado" class=" finalizado">Finalizado</option>
-                            <option value="Cancelado" class=" cancelado">Cancelado</option>
-                        </select>
-                    </td>   
-                </tr>
-                 <tr>
-                    <td>Paulo Henrique</td>
-                    <td>Flash Tattoo</td>
-                    <td>15/05/2026</td>
-                    <td>16:00</td>
-                    <td>(11) 97777-7777</td>
-                    <td>
-                        <select name="status" class="status">
-                            <option value="Confirmado" class=" confirmado">Confirmado</option>
-                            <option value="Finalizado" class=" finalizado">Finalizado</option>
-                            <option value="Cancelado" class=" cancelado">Cancelado</option>
-                        </select>
+                            <option value="Pendente" class="pendente">Pendente</option>
+                            <option value="Confirmado" class="confirmado">Confirmado</option>
+                            <option value="Cancelado" class="cancelado">Cancelado</option>
+                        </select> 
                     </td>
-                </tr>
-                <tr>
-                    <td>Davi Xavier</td>
-                    <td>Cobertura</td>
-                    <td>16/05/2026</td>
-                    <td>11:00</td>
-                    <td>(11) 96666-6666</td>
                     <td>
-                        <select name="status" class="status">
-                            <option value="Confirmado" class=" confirmado">Confirmado</option>
-                            <option value="Finalizado" class=" finalizado">Finalizado</option>
-                            <option value="Cancelado" class=" cancelado">Cancelado</option>
-                        </select>
+                        <a href="editar-agendamento.php?id=2" ><i class="fa-regular fa-pen-to-square icon"></i></a>
+                        <a href="excluir-agendamento.php?id=2"><i class="fa-regular fa-trash-can icon" style="color: var(--cancel);"></i></a>
                     </td>
                 </tr>
             </tbody>
         </table>
+        
 </main>
 
 <script>
