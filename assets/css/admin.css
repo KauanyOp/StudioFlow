@@ -153,7 +153,7 @@ tbody tr:hover{
     background-color: var(--gray);
 }
 
-select{
+.status{
     background: transparent;
     border: 1px solid var(--light);
     border-radius: 20px;
@@ -165,28 +165,23 @@ select{
     -webkit-appearance: none;
 } 
 
-select.confirmado{ 
+.status.confirmado{ 
     color: var(--green); 
-    border-color: var(--green); 
+    border-color: var(--green) !important; 
 
 }
-select.cancelado{ 
+.status.cancelado{ 
     color: var(--cancel); 
-    border-color: var(--cancel); 
+    border-color: var(--cancel) !important; 
 }
 
-select.finalizado{ 
+.status.finalizado{ 
     color: var(--blue); 
-    border-color: var(--blue); 
+    border-color: var(--blue) !important; 
 }
-select.pendente{ 
+.status.pendente{ 
     color: var(--yellow); 
-    border-color: var(--yellow); 
-}
-
-select option{
-    background: var(--dark);
-    color: var(--white);
+    border-color: var(--yellow) !important; 
 }
 
 /*Filtros*/
