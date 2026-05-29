@@ -43,6 +43,7 @@ CREATE TABLE agendamento (
 );
 
 /*INSERTS*/
+
 -- CLIENTES
 INSERT INTO cliente (nome, contato_cliente, data_nasc) VALUES
 ('Ana Souza', '11987654321', '1998-03-15'),

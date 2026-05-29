@@ -12,32 +12,124 @@
 <body>
 
 <main>
-    <form action="calendario.php" method="POST">
-        <h2>Criar Agendamento</h2>
-        <label>Cliente</label>
-        <input type="text" name="nome" id="nome" placeholder="Digite o nome do cliente">
+    <form action="../../backend/agendar.php" method="POST">
+      <input type="hidden" name="origem" value="profissional">
+      <div id="tela1" class="tela ativa">
+        <h2>Dados do cliente</h2>
+
+        <label>Nome Completo</label>
+        <input type="text" name="nome_cliente" id="nome_cliente" placeholder="Digite o nome completo do cliente" required><br>
+
+        <label>Data de Nascimento:</label>
+        <input type="date" name="data-nasc" id="data-nasc" required><br>
+
         <label>Contato</label>
-        <input type="text" name="contato" id="contato" placeholder="Telefone ou WhatsApp">
-        <label>Selecione a Data</label>
-        <input type="date" name="data-marcada" id="data-marcada">
-        <label>Selecione o Horário</label>
-        <select id="horario" name="horario" required>
-          <option value="" disabled selected>Selecione</option>
-          <option value="09:00">09:00</option>
-          <option value="10:00">10:00</option>
-          <option value="11:00">11:00</option>
-        </select>
+        <input type="text" name="contato" id="contato" placeholder="Telefone ou WhatsApp" required><br>
+        <button type="button" onclick="irParaTela2()">Próximo</button>
+    </div>
+
+    <div id="tela2" class="tela">
+        <h2>Serviço</h2>
+
         <label>Selecione o Serviço</label>
         <select id="servico" name="servico" required>
-          <option value="" disabled selected>Selecione</option>
-          <option value="tattoo">Tatto Personalizada</option>
-          <option value="flash">Flash Tattoo</option>
-          <option value="cobertura">Cobertura</option>
-          <option value="remocao">Remoção</option>
+            <option value="" disabled selected>Selecione</option>
+            <option value="piercing">Piercing</option>
+            <option value="tatuagem">Tatuagem</option>
+        </select><br>
+
+        <label>Região do Corpo</label>
+        <input type="text" name="regiao" id="regiao" placeholder="Região do corpo que deseja perfurar/tatuar"><br>
+
+        <label>Quantidade</label>
+        <input type="number" name="qtd" id="qtd" max="99" placeholder="Insira a quantidade de tatuagens/perfurações deseja"><br>
+
+        <!-- Campos específicos (Tatuagem) -->
+        <div id="campos-tatuagem" style="display: none;">
+            <label>Estilo de Tatuagem</label>
+
+            <select id="estilo" name="estilo"><br>
+                <option value="" disabled selected>Selecione o estilo</option>
+                <option value="fineline">Fine Line</option>
+                <option value="old_school">Old School</option>
+                <option value="flash_tattoo">Flash Tattoo</option>
+                <option value="realista">Realista</option>
+                <option value="lettering">Lettering</option>
+                <option value="blackout">Blackout</option>
+                <option value="anime">Anime</option>
+                <option value="cobertura">Cobertura</option>
+            </select>
+        </div>
+
+        <div>
+            <button type="button" onclick="voltarTela1()">Voltar</button>
+            <button type="button" onclick="irParaTela3()">Próximo</button>
+        </div>
+    </div>
+
+    <div id="tela3" class="tela">
+        <h2>Agendamento</h2>
+
+        <label>Escolha a Data</label>
+        <input type="date" name="data-marcada" id="data-marcada" required>
+
+        <label>Selecione o Horário</label>
+        <select id="horario" name="horario" required>
+            <option value="" disabled selected>Selecione</option>
+            <option value="09:00">09:00</option>
+            <option value="09:30">09:30</option>
+            <option value="10:00">10:00</option>
+            <option value="10:30">10:30</option>
+            <option value="11:00">11:00</option>
         </select>
-        <button type="submit">Criar</button>
+        <div>
+            <button type="button" onclick="voltarTela2()">Voltar</button>
+            <button type="submit">Criar</button>
+        </div>
+     </div>
     </form>
 </main>
 
+<script>
+function irParaTela2() {
+    document.getElementById("tela1").classList.remove("ativa");
+    document.getElementById("tela2").classList.add("ativa");
+    document.getElementById("tela3").classList.remove("ativa");
+}
+
+function irParaTela3() {
+    document.getElementById("tela1").classList.remove("ativa");
+    document.getElementById("tela2").classList.remove("ativa");
+    document.getElementById("tela3").classList.add("ativa");
+}
+
+function voltarTela1() {
+    document.getElementById("tela3").classList.remove("ativa");
+    document.getElementById("tela2").classList.remove("ativa");
+    document.getElementById("tela1").classList.add("ativa");
+}
+
+function voltarTela2() {
+    document.getElementById("tela3").classList.remove("ativa");
+    document.getElementById("tela2").classList.add("ativa");
+    document.getElementById("tela1").classList.remove("ativa");
+}
+
+const selectServico = document.getElementById("servico");
+const camposTatuagem = document.getElementById("campos-tatuagem");
+
+selectServico.addEventListener("change", () => {
+
+    if (selectServico.value === "tatuagem") {
+        camposTatuagem.style.display = "block";
+    } 
+    
+    else {
+        camposTatuagem.style.display = "none";
+    }
+
+});
+
+</script>
 </body>
 </html>

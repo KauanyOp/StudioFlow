@@ -1,4 +1,22 @@
-<?php ?>
+<?php require_once '../../backend/conexao.php';
+
+//Seleciona os campos no banco
+$sql = "SELECT 
+  agendamento.id_agendamento,
+  cliente.nome,
+  cliente.contato_cliente,
+  servicos.tipo_servico,
+  agendamento.data_agen,
+  agendamento.horario,
+  agendamento.status_agendamento
+
+  FROM agendamento INNER JOIN cliente ON agendamento.id_cliente = cliente.id_cliente 
+  INNER JOIN servicos ON agendamento.id_servicos = servicos.id_servicos WHERE agendamento.status_agendamento IN ('pendente','confirmado')";
+
+//$stmt = statement(instrução do sql)
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -33,84 +51,72 @@
     <main>
         <h2>Agendamentos</h2>
         <p>Atendimentos com realização pendente</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Cliente</th>
-                    <th>Serviço</th>
-                    <th>Data</th>
-                    <th>Horário</th>
-                    <th>Contato</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Kauany Oliveira</td>
-                    <td>Tatuagem</td>
-                    <td>(11) 99999-9999</td>
-                    <td>13/05/2026</td>
-                    <td>14:00</td>
-                    <td>
-                        <select name="status" class="status">
-                            <option value="Pendente" class="pendente">Pendente</option>
-                            <option value="Confirmado" class="confirmado">Confirmado</option>
-                            <option value="Cancelado" class="cancelado">Cancelado</option>
-                        </select>
-                    </td>
-                    <td>
-                        <a href="editar-agendamento.php?id=1" ><i class="fa-regular fa-pen-to-square icon"></i></a>
-                        <a href="excluir-agendamento.php?id=1"><i class="fa-regular fa-trash-can icon" style="color: var(--cancel);"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Giovanna Rodrigues</td>
-                    <td>Remoção</td>
-                    <td>(11) 98888-8888</td>
-                    <td>14/05/2026</td>
-                    <td>10:00</td>
-                    <td>
-                        <select name="status" class="status">
-                            <option value="Pendente" class="pendente">Pendente</option>
-                            <option value="Confirmado" class="confirmado">Confirmado</option>
-                            <option value="Cancelado" class="cancelado">Cancelado</option>
-                        </select> 
-                    </td>
-                    <td>
-                        <a href="editar-agendamento.php?id=2" ><i class="fa-regular fa-pen-to-square icon"></i></a>
-                        <a href="excluir-agendamento.php?id=2"><i class="fa-regular fa-trash-can icon" style="color: var(--cancel);"></i></a>
-                    </td>
-                </tr>
-            </tbody>
+        <table><br>
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Serviço</th>
+            <th>Data</th>
+            <th>Horário</th>
+            <th>Contato</th>
+            <th>Status</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--pega os dados selecionados-->
+          <?php while($row = $stmt->fetch()) { ?>
+            <tr>
+              <td><?php echo htmlspecialchars($row['nome']); ?></td>
+              <td><?php echo htmlspecialchars($row['tipo_servico']); ?></td>
+              <td><?php echo date('d/m/Y', strtotime($row['data_agen'])); ?></td>
+              <td><?php echo date('H:i', strtotime($row['horario'])); ?></td>
+              <td><?php echo htmlspecialchars($row['contato_cliente']); ?></td>
+              <td>
+              <select name="status" class="status <?php echo $row['status_agendamento']; ?>" data-id="<?php echo $row['id_agendamento']; ?>">
+              <option value="pendente" <?php if($row['status_agendamento'] == 'pendente') echo 'selected'; ?> class="pendente">Pendente</option>
+              <option value="confirmado" <?php if($row['status_agendamento'] == 'confirmado') echo 'selected'; ?> class="confirmado">Confirmado</option>
+              <option value="finalizado" <?php if($row['status_agendamento'] == 'finalizado') echo 'selected'; ?> class="finalizado">Finalizado</option>
+              <option value="cancelado" <?php if($row['status_agendamento'] == 'cancelado') echo 'selected'; ?> class="cancelado">Cancelado</option>
+            </select>
+            </td>
+            <td>
+            <a href="editar-agendamento.php?id=<?php echo $row['id_agendamento']; ?>"><i class="fa-regular fa-pen-to-square icon"></i></a>
+            <a href="../../backend/atualizar-status.php?excluir=<?php echo $row['id_agendamento']; ?>" onclick="return confirm('Deseja realmente excluir este agendamento?')">
+            <i class="fa-regular fa-trash-can icon" style="color: var(--cancel);"></i></a>
+            </td>
+            </tr>
+            <?php } ?>
+          </tbody>
         </table>
-        
-</main>
+      </main>
 
 <script>
-function aplicarStatus(select){
-  select.classList.remove("confirmado", "cancelado", "pendente", "finalizado");
+document.querySelectorAll('.status').forEach(select => {
+select.addEventListener('change', function() {
 
-  if(select.value === "Confirmado"){
-    select.classList.add("confirmado");
-  }
-  else if(select.value === "Cancelado"){
-    select.classList.add("cancelado");
-  }
-  else if(select.value === "Pendente"){
-    select.classList.add("pendente");
-  }
-  else if(select.value === "Finalizado"){
-    select.classList.add("finalizado");
-  }
-}
-
-document.querySelectorAll("select").forEach(select => {
-  aplicarStatus(select);
-
-  select.addEventListener("change", function() {
-    aplicarStatus(this);
-  });
+     let novoStatus = this.value;
+     let id = this.dataset.id;
+     let elemento = this;
+    fetch('../../backend/atualizar-status.php', {
+         method: 'POST',
+         headers: {
+             'Content-Type': 'application/x-www-form-urlencoded'
+         },
+         body: `id=${id}&status=${novoStatus}`
+     })
+     .then(response => response.text())
+     .then(data => {
+        console.log(data);
+        // só altera a cor se salvou no banco
+         if(data.trim() === "Atualizado"){
+             elemento.className = "status " + novoStatus;
+         }
+     })
+     .catch(error => {
+         console.log(error);
+     });
+   });
 });
 </script>
 

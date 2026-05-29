@@ -21,12 +21,12 @@
 <main>
 
 <form action="../backend/agendar.php" method="POST">
-
+<input type="hidden" name="origem" value="cliente">
     <div id="tela1" class="tela ativa">
         <h2>Dados Pessoais</h2>
 
         <label>Nome Completo</label>
-        <input type="text" name="nome" id="nome" placeholder="Digite seu nome" required><br>
+        <input type="text" name="nome_cliente" id="nome_cliente" placeholder="Digite seu nome" required><br>
 
         <label>Data de Nascimento:</label>
         <input type="date" name="data-nasc" id="data-nasc" required><br>

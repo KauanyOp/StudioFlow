@@ -1,25 +1,6 @@
-<?php require_once '../../backend/conexao.php';
-
-//Seleciona os campos no banco
-$sql = "SELECT 
-  agendamento.id_agendamento,
-  cliente.nome,
-  cliente.contato_cliente,
-  servicos.tipo_servico,
-  agendamento.data_agen,
-  agendamento.horario,
-  agendamento.status_agendamento
-
-  FROM agendamento INNER JOIN cliente ON agendamento.id_cliente = cliente.id_cliente INNER JOIN servicos ON agendamento.id_servicos = servicos.id_servicos";
-
-//$stmt = statement(instrução do sql)
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-?>
-
 <?php
  //Inicia sessão, verifica se existe usuario logado e abrevia o nome do usuario
-  session_start();
+session_start();
   
   $nomeCompleto = $_SESSION["nome"];
   $primeiroNome = strtok($nomeCompleto, " ");
@@ -82,69 +63,9 @@ $stmt->execute();
         calendar.render();
       });
       </script>
-      </div>
-      <table><br>
-        <thead>
-          <tr>
-            <th>Cliente</th>
-            <th>Serviço</th>
-            <th>Data</th>
-            <th>Horário</th>
-            <th>Contato</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!--pega os dados selecionados-->
-          <?php while($row = $stmt->fetch()) { ?>
-            <tr>
-              <td><?php echo htmlspecialchars($row['nome']); ?></td>
-              <td><?php echo htmlspecialchars($row['tipo_servico']); ?></td>
-              <td><?php echo date('d/m/Y', strtotime($row['data_agen'])); ?></td>
-              <td><?php echo htmlspecialchars($row['horario']); ?></td>
-              <td><?php echo htmlspecialchars($row['contato_cliente']); ?></td>
-              <td>
-              <select name="status" class="status <?php echo $row['status_agendamento']; ?>" data-id="<?php echo $row['id_agendamento']; ?>">
-              <option value="pendente" <?php if($row['status_agendamento'] == 'pendente') echo 'selected'; ?> class="pendente">Pendente</option>
-              <option value="confirmado" <?php if($row['status_agendamento'] == 'confirmado') echo 'selected'; ?> class="confirmado">Confirmado</option>
-              <option value="finalizado" <?php if($row['status_agendamento'] == 'finalizado') echo 'selected'; ?> class="finalizado">Finalizado</option>
-              <option value="cancelado" <?php if($row['status_agendamento'] == 'cancelado') echo 'selected'; ?> class="cancelado">Cancelado</option>
-            </select>
-            </td>
-            </tr>
-            <?php } ?>
-          </tbody>
-        </table>
+      </div><br><br>
         <a href="criar-agendamento.php" class="btn">Criar Agendamento</a>
 </main>
-<script>
-document.querySelectorAll('.status').forEach(select => {
-select.addEventListener('change', function() {
-
-     let novoStatus = this.value;
-     let id = this.dataset.id;
-     let elemento = this;
-    fetch('../../backend/atualizar-status.php', {
-         method: 'POST',
-         headers: {
-             'Content-Type': 'application/x-www-form-urlencoded'
-         },
-         body: `id=${id}&status=${novoStatus}`
-     })
-     .then(response => response.text())
-     .then(data => {
-        console.log(data);
-        // só altera a cor se salvou no banco
-         if(data.trim() === "Atualizado"){
-             elemento.className = "status " + novoStatus;
-         }
-     })
-     .catch(error => {
-         console.log(error);
-     });
-   });
-});
-</script>
 </body>
 </html>
 <?php

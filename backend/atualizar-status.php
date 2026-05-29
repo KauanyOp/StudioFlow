@@ -1,13 +1,16 @@
-<?php require_once 'conexao.php';
+<?php
+require_once 'conexao.php';
 
+// Atualização de status
 if(isset($_POST['id']) && isset($_POST['status'])){
 
     $id = $_POST['id'];
     $status = $_POST['status'];
 
-    $sql = "UPDATE agendamento SET status_agendamento = :status WHERE id_agendamento = :id";
+    $sql = "UPDATE agendamento
+            SET status_agendamento = :status
+            WHERE id_agendamento = :id";
 
-    //bindParam faz a conexão da classe status com a variavel
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':status', $status);
     $stmt->bindParam(':id', $id);
@@ -17,5 +20,105 @@ if(isset($_POST['id']) && isset($_POST['status'])){
     }else{
         echo "Erro";
     }
+
+    exit;
+}
+
+// Atualização do formulário de edição
+if(isset($_POST['id_agendamento'])){
+
+    $idAgendamento = $_POST['id_agendamento'];
+    $idCliente = $_POST['id_cliente'];
+    $idServico = $_POST['id_servicos'];
+
+    $nome = $_POST['nome'];
+    $contato = $_POST['contato'];
+    $servico = $_POST['servico'];
+    $data = $_POST['data'];
+    $horario = $_POST['horario'];
+
+    // Atualiza cliente
+    $sqlCliente = "UPDATE cliente
+                   SET nome = :nome,
+                       contato_cliente = :contato
+                   WHERE id_cliente = :idCliente";
+
+    $stmtCliente = $pdo->prepare($sqlCliente);
+    $stmtCliente->bindParam(':nome', $nome);
+    $stmtCliente->bindParam(':contato', $contato);
+    $stmtCliente->bindParam(':idCliente', $idCliente);
+    $stmtCliente->execute();
+
+    // Atualiza serviço
+    $sqlServico = "UPDATE servicos
+                   SET tipo_servico = :servico
+                   WHERE id_servicos = :idServico";
+
+    $stmtServico = $pdo->prepare($sqlServico);
+    $stmtServico->bindParam(':servico', $servico);
+    $stmtServico->bindParam(':idServico', $idServico);
+    $stmtServico->execute();
+
+    // Atualiza agendamento
+    $sqlAgendamento = "UPDATE agendamento
+                       SET data_agen = :data,
+                           horario = :horario
+                       WHERE id_agendamento = :idAgendamento";
+
+    $stmtAgendamento = $pdo->prepare($sqlAgendamento);
+    $stmtAgendamento->bindParam(':data', $data);
+    $stmtAgendamento->bindParam(':horario', $horario);
+    $stmtAgendamento->bindParam(':idAgendamento', $idAgendamento);
+
+    if($stmtAgendamento->execute()){
+        header("Location: ../frontend/admin/agendamentos.php");
+        exit;
+    }else{
+        echo "Erro ao atualizar.";
+    }
+}
+
+// Exclusão do agendamento
+if(isset($_GET['excluir'])){
+
+    $idAgendamento = $_GET['excluir'];
+
+    // Busca os IDs relacionados
+    $sql = "SELECT id_cliente, id_servicos FROM agendamento WHERE id_agendamento = :id";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id', $idAgendamento);
+    $stmt->execute();
+    $dados = $stmt->fetch();
+
+    if($dados){
+
+        $idCliente = $dados['id_cliente'];
+        $idServico = $dados['id_servicos'];
+
+        // Exclui o agendamento
+        $sqlAgendamento = "DELETE FROM agendamento WHERE id_agendamento = :id";
+
+        $stmtAgendamento = $pdo->prepare($sqlAgendamento);
+        $stmtAgendamento->bindParam(':id', $idAgendamento);
+        $stmtAgendamento->execute();
+
+        // Exclui o serviço
+        $sqlServico = "DELETE FROM servicos WHERE id_servicos = :id";
+
+        $stmtServico = $pdo->prepare($sqlServico);
+        $stmtServico->bindParam(':id', $idServico);
+        $stmtServico->execute();
+
+        // Exclui o cliente
+        $sqlCliente = "DELETE FROM cliente WHERE id_cliente = :id";
+
+        $stmtCliente = $pdo->prepare($sqlCliente);
+        $stmtCliente->bindParam(':id', $idCliente);
+        $stmtCliente->execute();
+    }
+
+    header("Location: ../frontend/admin/agendamentos.php");
+    exit;
 }
 ?>

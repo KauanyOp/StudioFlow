@@ -1,4 +1,20 @@
-<?php ?>
+<?php
+require_once '../../backend/conexao.php';
+
+$sql = "SELECT
+agendamento.id_agendamento,
+cliente.nome,
+cliente.contato_cliente,
+servicos.tipo_servico,
+agendamento.data_agen,
+agendamento.horario,
+agendamento.status_agendamento
+
+FROM agendamento INNER JOIN cliente ON agendamento.id_cliente = cliente.id_cliente INNER JOIN servicos ON agendamento.id_servicos = servicos.id_servicos";
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,39 +78,21 @@
                     <th>Data</th>
                     <th>Horário</th>
                     <th>Contato</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Kauany Oliveira</td>
-                    <td>Tatuagem</td>
-                    <td>13/05/2026</td>
-                    <td>14:00</td>
-                    <td>(11) 99999-9999</td>
-                </tr>
-                <tr>
-                    <td>Giovanna Rodrigues</td>
-                    <td>Remoção</td>
-                    <td>14/05/2026</td>
-                    <td>10:00</td>
-                    <td>(11) 98888-8888</td>  
-                </tr>
-                 <tr>
-                    <td>Paulo Henrique</td>
-                    <td>Flash Tattoo</td>
-                    <td>15/05/2026</td>
-                    <td>16:00</td>
-                    <td>(11) 97777-7777</td>
-                </tr>
-                <tr>
-                    <td>Davi Xavier</td>
-                    <td>Cobertura</td>
-                    <td>16/05/2026</td>
-                    <td>11:00</td>
-                    <td>(11) 96666-6666</td>
-                    </td>
-                </tr>
-            </tbody>
+              <?php while($row = $stmt->fetch()) { ?>
+              <tr>
+                <td><?php echo htmlspecialchars($row['nome']); ?></td>
+                <td><?php echo htmlspecialchars($row['tipo_servico']); ?></td>
+                <td><?php echo date('d/m/Y', strtotime($row['data_agen'])); ?></td>
+                <td><?php echo date('H:i', strtotime($row['horario'])); ?></td>
+                <td><?php echo htmlspecialchars($row['contato_cliente']); ?></td>
+                <td><?php echo htmlspecialchars($row['status_agendamento']); ?></td>
+              </tr>
+              <?php } ?>
+         </tbody>
         </table>
 </main>
 </body>

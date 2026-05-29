@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$nome_cliente = $_SESSION["nome"] ?? "";
+$nome_cliente = $_SESSION["nome_cliente"] ?? "";
 $servico = $_SESSION["servico"] ?? "";
 $data_marcada = $_SESSION["data_marcada"] ?? "";
 $horario = $_SESSION["horario"] ?? "";

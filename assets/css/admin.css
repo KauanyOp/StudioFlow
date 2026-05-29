@@ -153,8 +153,12 @@ tbody tr:hover{
     background-color: var(--gray);
 }
 
+.status option{
+  background-color: var(--gray) !important;
+}
+
 .status{
-    background: transparent;
+    background-color: transparent;
     border: 1px solid var(--light);
     border-radius: 20px;
     padding: 8px 10px;
@@ -182,6 +186,14 @@ tbody tr:hover{
 .status.pendente{ 
     color: var(--yellow); 
     border-color: var(--yellow) !important; 
+}
+
+.step{
+    display:none;
+}
+
+.step.active{
+    display:block;
 }
 
 /*Filtros*/
@@ -236,6 +248,10 @@ tbody tr:hover{
 .fc-day-sun,
 .fc-day-sat {
   color: var(--red);
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+    background-color: var(--red) !important;
 }
 
 /*Dashboard*/
