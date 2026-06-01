@@ -78,6 +78,61 @@ if(isset($_POST['id_agendamento'])){
     }
 }
 
+// Atualiza o status do profissional
+if(isset($_POST['id_profissional']) && isset($_POST['status_profissional']) && !isset($_POST['nome'])){
+
+    $id = $_POST['id_profissional'];
+    $status = $_POST['status_profissional'];
+
+    $sql = "UPDATE profissional
+            SET status_profissional = :status
+            WHERE id_profissional = :id";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':status', $status);
+    $stmt->bindParam(':id', $id);
+
+    if($stmt->execute()){
+        echo "Atualizado";
+    }else{
+        echo "Erro";
+    }
+
+    exit;
+}
+
+// Atualiza os dados do profissional
+if(isset($_POST['id_profissional'])){
+
+    $id = $_POST['id_profissional'];
+    $nome = $_POST['nome'];
+    $contato = $_POST['contato'];
+    $especialidade = $_POST['especialidade'];
+    $status = $_POST['status_profissional'];
+
+    $sql = "UPDATE profissional
+            SET nome = :nome,
+                contato_prof = :contato,
+                especialidade = :especialidade,
+                status_profissional = :status_profissional
+            WHERE id_profissional = :id";
+
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->bindParam(':nome', $nome);
+    $stmt->bindParam(':contato', $contato);
+    $stmt->bindParam(':especialidade', $especialidade);
+    $stmt->bindParam(':status_profissional', $status);
+    $stmt->bindParam(':id', $id);
+
+    if($stmt->execute()){
+        header("Location: ../frontend/admin/profissionais.php");
+        exit;
+    }else{
+        echo "Erro ao atualizar profissional.";
+    }
+}
+
 // Exclusão do agendamento
 if(isset($_GET['excluir'])){
 
@@ -120,5 +175,23 @@ if(isset($_GET['excluir'])){
 
     header("Location: ../frontend/admin/agendamentos.php");
     exit;
+}
+// Exclui o profissional
+if(isset($_GET['excluir_profissional'])){
+
+    $id = $_GET['excluir_profissional'];
+
+    $sql = "DELETE FROM profissional
+            WHERE id_profissional = :id";
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id', $id);
+
+    if($stmt->execute()){
+        header("Location: ../frontend/admin/profissionais.php");
+        exit;
+    }else{
+        echo "Erro ao excluir profissional.";
+    }
 }
 ?>

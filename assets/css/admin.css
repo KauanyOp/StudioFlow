@@ -221,7 +221,8 @@ tbody tr:hover{
     background-color: var(--red);
     color: var(--white);
     border-radius: 15px;
-    padding: 15px 20px;
+    border: black;
+    padding: 10px 20px;
     cursor: pointer;
     text-decoration: none;
 }
@@ -251,7 +252,14 @@ tbody tr:hover{
 }
 
 .fc .fc-daygrid-day.fc-day-today {
-    background-color: var(--red) !important;
+    background-color: rgba(100, 3, 3, 0.877) !important;
+}
+
+.fc .fc-button-primary,
+.fc-event {
+    background-color: rgba(122, 14, 14, 0.877) !important;
+    border-color: rgba(100, 3, 3, 0.877) !important;
+    font-size: small;
 }
 
 /*Dashboard*/

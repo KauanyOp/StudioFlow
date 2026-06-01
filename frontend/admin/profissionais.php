@@ -1,4 +1,10 @@
-<?php ?>
+<?php require_once '../../backend/conexao.php';
+//Seleciona os campos no banco
+$sql = "SELECT profissional.id_profissional, profissional.nome, profissional.contato_prof, profissional.especialidade, profissional.status_profissional FROM profissional";
+//$stmt = statement(instrução do sql)
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +34,6 @@
             </div>
         </nav>
     </aside>
-
     <main>
         <h2>Profissionais</h2>
         <p>Gerencie os profissionais do seu estúdio</p>
@@ -43,90 +48,64 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Kauany Oliveira</td>
-                    <td>Tatuagem</td>
-                    <td>(11) 99999-9999</td>
-                     <td>
-                        <select name="status" class="status">
-                            <option value="ativo" class=" ativo">Ativo</option>
-                            <option value="inativo" class=" inativo">Inativo</option>
-                        </select>
-                    </td>
-                    <td>
-                        <a href="editar-profissional.php?id=1" ><i class="fa-regular fa-pen-to-square icon"></i></a>
-                        <a href="excluir-profissional.php?id=1"><i class="fa-regular fa-trash-can icon" style="color: var(--cancel);"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Giovanna Rodrigues</td>
-                    <td>Remoção</td>
-                    <td>(11) 98888-8888</td>  
-                    <td>
-                        <select name="status" class="status">
-                            <option value="ativo" class=" ativo">Ativo</option>
-                            <option value="inativo" class=" inativo">Inativo</option>
-                        </select>
-                    </td>
-                    <td>
-                        <a href="editar-profissional.php?id=2" ><i class="fa-regular fa-pen-to-square icon"></i></a>
-                        <a href="excluir-profissional.php?id=2"><i class="fa-regular fa-trash-can icon" style="color: var(--cancel);"></i></a>
-                    </td>
-                </tr>
-                 <tr>
-                    <td>Paulo Henrique</td>
-                    <td>Flash Tattoo</td>
-                    <td>(11) 97777-7777</td>
-                    <td>
-                        <select name="status" class="status">
-                            <option value="ativo" class=" ativo">Ativo</option>
-                            <option value="inativo" class=" inativo">Inativo</option>
-                        </select>
-                    </td>
-                    <td>
-                        <a href="editar-profissional.php?id=4" ><i class="fa-regular fa-pen-to-square icon"></i></a>
-                        <a href="excluir-profissional.php?id=3"><i class="fa-regular fa-trash-can icon" style="color: var(--cancel);"></i></a>
-                    </td>
-
-                </tr>
-                <tr>
-                    <td>Davi Xavier</td>
-                    <td>Cobertura</td>
-                    <td>(11) 96666-6666</td>
-                    <td>
-                        <select name="status" class="status">
-                            <option value="ativo" class=" ativo">Ativo</option>
-                            <option value="inativo" class=" inativo">Inativo</option>
-                        </select>
-                    <td>
-                        <a href="editar-profissional.php?id=4" ><i class="fa-regular fa-pen-to-square icon"></i></a>
-                        <a href="excluir-profissional.php?id=4"><i class="fa-regular fa-trash-can icon" style="color: var(--cancel);"></i></a>
-                    </td>
-                </tr>
-            </tbody>
+          <!--pega os dados selecionados-->
+          <?php while($row = $stmt->fetch()) { ?>
+            <tr>
+              <td><?php echo htmlspecialchars($row['nome']); ?></td>
+              <td><?php echo ucwords(str_replace('_', ' ', htmlspecialchars($row['especialidade']))); ?></td>
+              <td><?php echo htmlspecialchars($row['contato_prof']); ?></td>          
+              <td>
+              <select name="status" class="status <?php echo $row['status_profissional']; ?>" data-id="<?php echo $row['id_profissional']; ?>">
+              <option value="ativo" <?php if($row['status_profissional'] == 'ativo') echo 'selected'; ?> class="ativo">Ativo</option>
+              <option value="inativo" <?php if($row['status_profissional'] == 'inativo') echo 'selected'; ?> class="inativo">Inativo</option>
+            </select>
+            </td>
+            <td>
+            <a href="editar-profissional.php?id=<?php echo $row['id_profissional']; ?>"><i class="fa-regular fa-pen-to-square icon"></i></a>
+            <a href="../../backend/atualizar-status.php?excluir_profissional=<?php echo $row['id_profissional']; ?>" onclick="return confirm('Deseja realmente excluir este profissional?')">
+            <i class="fa-regular fa-trash-can icon" style="color: var(--cancel);"></i></a>
+            </td>
+            </tr>
+            <?php } ?>
+          </tbody>
         </table>
 
-        <a href="criar-profissional.php" class="btn">Registrar Profissional</a>
+        <a href="../cadastro.php" class="btn">Registrar Profissional</a>
 </main>
 
 <script>
 function aplicarStatus(select){
-  select.classList.remove("ativo", "inativo");
-
-  if(select.value === "ativo"){
-    select.classList.add("confirmado");
-  }
-  else if(select.value === "inativo"){
-    select.classList.add("cancelado");
-  }
+    select.classList.remove("confirmado", "cancelado");
+    if(select.value === "ativo"){
+        select.classList.add("confirmado");
+    }else if(select.value === "inativo"){
+        select.classList.add("cancelado");
+    }
 }
 
-document.querySelectorAll("select").forEach(select => {
-  aplicarStatus(select);
+document.querySelectorAll(".status").forEach(select => {
+    aplicarStatus(select);
+    select.addEventListener("change", function() {
+        aplicarStatus(this);
+        const id = this.dataset.id;
+        const status = this.value;
 
-  select.addEventListener("change", function() {
-    aplicarStatus(this);
-  });
+        fetch("../../backend/atualizar-status.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `id_profissional=${id}&status_profissional=${status}`
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+    });
 });
 </script>
 </body>

@@ -4,6 +4,7 @@ require_once "conexao.php";
 
 $nome = trim($_POST["nome"]);
 $email = trim($_POST["email"]);
+$contato_prof = trim($_POST["contato_prof"]);
 $entidade = trim($_POST["entidade"]);
 $especialidade = trim($_POST["especialidade"] ?? "");
 $senha = trim($_POST["senha"]);
@@ -11,6 +12,7 @@ $senha = trim($_POST["senha"]);
 if (
     $nome === "" ||
     $email === "" ||
+    $contato_prof === "" ||
     $entidade === "" ||
     $senha === ""
 ) {
@@ -50,7 +52,7 @@ $insert = $pdo->prepare("
 
 $insert->execute([
     $nome,
-    "",
+    $contato_prof,
     $email,
     $senhaHash,
     $especialidade

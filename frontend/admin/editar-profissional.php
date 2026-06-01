@@ -1,4 +1,19 @@
-<?php ?>
+<?php
+require_once '../../backend/conexao.php';
+
+$id = $_GET['id'];
+
+$sql = "SELECT * FROM profissional WHERE id_profissional = :id";
+
+$stmt = $pdo->prepare($sql);
+$stmt->bindParam(':id', $id);
+$stmt->execute();
+$profissional = $stmt->fetch();
+
+if(!$profissional){
+    die("Profissional não encontrado.");
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -12,19 +27,24 @@
 <body>
 
 <main>
-    <form action="profissionais.php" method="POST">
+    <form action="../../backend/atualizar-status.php" method="POST">
+        <input type="hidden" name="id_profissional" value="<?php echo $profissional['id_profissional']; ?>">
         <h2>Editar Profissional</h2>
         <label>Nome Completo</label>
-        <input type="text" name="nome" id="nome" placeholder="Digite seu nome">
+        <input type="text" name="nome" id="nome" value="<?php echo htmlspecialchars($profissional['nome']); ?>" required>
         <label>Contato</label>
-        <input type="text" name="contato" id="contato" placeholder="Telefone ou WhatsApp">
-        <label>Selecione a Especialidade</label>
-        <select id="servico" name="servico" required>
-          <option value="" disabled selected>Selecione</option>
-          <option value="tattoo">Tatto Personalizada</option>
-          <option value="flash">Flash Tattoo</option>
-          <option value="cobertura">Cobertura</option>
-          <option value="remocao">Remoção</option>
+        <input type="text" name="contato" id="contato" value="<?php echo htmlspecialchars($profissional['contato_prof']); ?>">
+        <label>Especialidade</label>
+        <select id="especialidade" name="especialidade" required>
+          <option value="piercing" <?php if($profissional['especialidade'] == 'piercing') echo 'selected'; ?>>Piercing</option>
+          <option value="fineline" <?php if($profissional['especialidade'] == 'fineline') echo 'selected'; ?>>Fine Line</option>
+          <option value="old_school" <?php if($profissional['especialidade'] == 'old_school') echo 'selected'; ?>>Old School</option>
+          <option value="flash_tattoo" <?php if($profissional['especialidade'] == 'flash_tattoo') echo 'selected'; ?>>Flash Tattoo</option>
+          <option value="realista" <?php if($profissional['especialidade'] == 'realista') echo 'selected'; ?>>Realista</option>
+          <option value="lettering" <?php if($profissional['especialidade'] == 'lettering') echo 'selected'; ?>>Lettering</option>
+          <option value="blackout" <?php if($profissional['especialidade'] == 'blackout') echo 'selected'; ?>>Blackout</option>
+          <option value="anime" <?php if($profissional['especialidade'] == 'anime') echo 'selected'; ?>>Anime</option>
+          <option value="cobertura" <?php if($profissional['especialidade'] == 'cobertura') echo 'selected'; ?>>Cobertura</option>
         </select>
         <button type="submit">Editar</button>
     </form>

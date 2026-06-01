@@ -20,6 +20,8 @@
         <h2>Cadastro</h2>
         <label>Nome Completo</label>
         <input type="text" name="nome" id="nome" placeholder="Digite seu nome" required>
+        <label>Contato</label>
+        <input type="text" name="contato_prof" id="contato_prof" placeholder="Telefone ou WhatsApp" required>
         <label>Email</label>
         <input type="email" name="email" id="email" placeholder="Digite seu email" required>
         <label>Tipo de Conta</label>

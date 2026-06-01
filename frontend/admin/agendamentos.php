@@ -68,7 +68,7 @@ $stmt->execute();
           <?php while($row = $stmt->fetch()) { ?>
             <tr>
               <td><?php echo htmlspecialchars($row['nome']); ?></td>
-              <td><?php echo htmlspecialchars($row['tipo_servico']); ?></td>
+              <td><?php echo ucfirst(htmlspecialchars($row['tipo_servico'])); ?></td>
               <td><?php echo date('d/m/Y', strtotime($row['data_agen'])); ?></td>
               <td><?php echo date('H:i', strtotime($row['horario'])); ?></td>
               <td><?php echo htmlspecialchars($row['contato_cliente']); ?></td>

@@ -1,4 +1,15 @@
-<?php ?>
+<?php
+require_once '../../backend/conexao.php';
+
+// Total de agendamentos
+$sqlTotal = "SELECT COUNT(*) AS total FROM agendamento";
+$totalAgendamentos = $pdo->query($sqlTotal)->fetch()['total'];
+$sqlConcluidos = "SELECT COUNT(*) AS total FROM agendamento WHERE status_agendamento = 'finalizado'";
+$concluidos = $pdo->query($sqlConcluidos)->fetch()['total'];
+$sqlMes = "SELECT COUNT(*) AS total FROM agendamento WHERE MONTH(data_agen) = MONTH(CURRENT_DATE()) AND YEAR(data_agen) = YEAR(CURRENT_DATE())";
+$mensais = $pdo->query($sqlMes)->fetch()['total'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,17 +48,17 @@
             <div class="card">
                 <i class="fa-regular fa-calendar icon-dash"></i>
                 <p>Total Agendamentos</p>
-                <h2>150</h2>
+                <h2><?php echo $totalAgendamentos; ?></h2>
             </div>
             <div class="card">
                 <i class="fa-regular fa-square-check icon-dash"></i>
                 <p>Atendimentos Concluídos</p>
-                <h2>100</h2>
+                <h2><?php echo $concluidos; ?></h2>
             </div>
             <div class="card">
                 <i class="fa-solid fa-chart-line icon-dash"></i>
                 <p>Atendimentos Mensais</p>
-                <h2>50</h2>
+                <h2><?php echo $mensais; ?></h2>
             </div>
         </div>
 
@@ -67,7 +78,10 @@
                 ],
 
                 datasets: [{
-                  data: [150, 100, 50], 
+                  data: [
+                  <?php echo $totalAgendamentos; ?>,
+                  <?php echo $concluidos; ?>,
+                  <?php echo $mensais; ?>], 
 
                   backgroundColor: [
                     '#80162483',  

@@ -1,7 +1,6 @@
 <?php
  //Inicia sessão, verifica se existe usuario logado e abrevia o nome do usuario
 session_start();
-  
   $nomeCompleto = $_SESSION["nome"];
   $primeiroNome = strtok($nomeCompleto, " ");
   if(!$_SESSION["logado"]){
@@ -9,6 +8,20 @@ session_start();
     header("Location:../login.php");
   }else{
 
+  require_once '../../backend/conexao.php';
+
+    $sql = "SELECT cliente.nome, agendamento.data_agen, agendamento.horario
+      FROM agendamento INNER JOIN cliente ON agendamento.id_cliente = cliente.id_cliente
+      WHERE agendamento.status_agendamento IN ('Pendente', 'Confirmado')";
+
+    $stmt = $pdo->query($sql);
+    $eventos = [];
+    while($row = $stmt->fetch()){
+        $eventos[] = [
+            'title' => date('H:i', strtotime($row['horario'])) . ' - ' . $row['nome'],
+            'start' => $row['data_agen']
+        ];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +71,8 @@ session_start();
             left: '',
             center: 'title',
             right: 'prev,next'
-          }
+          },
+          events: <?php echo json_encode($eventos); ?>
         });
         calendar.render();
       });
