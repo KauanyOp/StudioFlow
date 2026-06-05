@@ -217,6 +217,18 @@ tbody tr:hover{
     color: var(--white);
 }
 
+.box-filter select {
+    height: 40px;
+    border-radius: 15px;
+    border: 1px solid var(--gray);
+    background: var(--dark);
+    color: var(--white);
+}
+
+.box-filter select:focus {
+    border-color: var(--light);
+}
+
 .btn {
     background-color: var(--red);
     color: var(--white);
