@@ -2,7 +2,6 @@
 require_once '../../backend/conexao.php';
 
 $id = $_GET['id'];
-
 $sql = "SELECT * FROM profissional WHERE id_profissional = :id";
 
 $stmt = $pdo->prepare($sql);
@@ -25,7 +24,6 @@ if(!$profissional){
     <link rel="shortcut icon" href="../../assets/img/icon/favicon.ico" type="image/x-icon">
 </head>
 <body>
-
 <main>
     <form action="../../backend/atualizar-status.php" method="POST">
         <input type="hidden" name="id_profissional" value="<?php echo $profissional['id_profissional']; ?>">

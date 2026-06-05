@@ -127,7 +127,6 @@ $mensais = $pdo->query($sqlMes)->fetch()['total'];
               }
             });
         </script>
-
-</main>
-</body>
+  </main>
+ </body>
 </html>

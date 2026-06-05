@@ -17,7 +17,7 @@ $paginaRetorno = ($origem == "cliente")
     ? "../frontend/form-agendamento.php"
     : "../frontend/admin/criar-agendamento.php";
 
-    
+// Validação dos campos
 if (
     $nome_cliente === "" ||
     $data_nasc === "" ||
@@ -59,17 +59,9 @@ if ($data_marcada < date("Y-m-d")) {
 
 $estilo = ($estilo === "") ? null : $estilo;
 
-$sqlCheck = $pdo->prepare("
-    SELECT id_agendamento
-    FROM agendamento
-    WHERE data_agen = ?
-    AND horario = ?
-");
-
-$sqlCheck->execute([
-    $data_marcada,
-    $horario
-]);
+// Verificação de horário ocupado
+$sqlCheck = $pdo->prepare("SELECT id_agendamento FROM agendamento WHERE data_agen = ? AND horario = ?");
+$sqlCheck->execute([$data_marcada, $horario]);
 
 if ($sqlCheck->fetch()) {
     $_SESSION["erro"] = 6;
@@ -78,53 +70,31 @@ if ($sqlCheck->fetch()) {
 }
 
 try {
-
     $pdo->beginTransaction();
 
     $sqlCliente = $pdo->prepare("
-        INSERT INTO cliente
-        (nome, data_nasc, contato_cliente)
-        VALUES (?, ?, ?)
-    ");
+        INSERT INTO cliente (nome, data_nasc, contato_cliente)
+        VALUES (?, ?, ?)");
 
-    $sqlCliente->execute([
-        $nome_cliente,
-        $data_nasc,
-        $contato
-    ]);
+    $sqlCliente->execute([$nome_cliente, $data_nasc, $contato]);
 
     $id_cliente = $pdo->lastInsertId();
 
     $sqlServico = $pdo->prepare("
-        INSERT INTO servicos
-        (tipo_servico, regiao, quantidade, estilo)
-        VALUES (?, ?, ?, ?)
-    ");
+        INSERT INTO servicos (tipo_servico, regiao, quantidade, estilo)
+        VALUES (?, ?, ?, ?)");
 
-    $sqlServico->execute([
-        $servico,
-        $regiao,
-        $qtd,
-        $estilo
-    ]);
+    $sqlServico->execute([$servico, $regiao, $qtd, $estilo]);
 
     $id_servico = $pdo->lastInsertId();
-
     $id_profissional = 1;
 
     $sqlAgendamento = $pdo->prepare("
         INSERT INTO agendamento
         (data_agen, horario, id_cliente, id_servicos, id_profissional)
-        VALUES (?, ?, ?, ?, ?)
-    ");
+        VALUES (?, ?, ?, ?, ?)");
 
-    $sqlAgendamento->execute([
-        $data_marcada,
-        $horario,
-        $id_cliente,
-        $id_servico,
-        $id_profissional
-    ]);
+    $sqlAgendamento->execute([$data_marcada, $horario, $id_cliente, $id_servico, $id_profissional]);
 
     $pdo->commit();
 
@@ -143,14 +113,10 @@ try {
     } else {
         header("Location: ../frontend/admin/calendario.php");
     }
-
     exit;
 
 } catch (Exception $e) {
-
     $pdo->rollBack();
     die($e->getMessage());
-
 }
-
 ?>

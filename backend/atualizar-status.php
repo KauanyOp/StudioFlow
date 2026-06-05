@@ -37,10 +37,8 @@ if(isset($_POST['id_agendamento'])){
     $data = $_POST['data'];
     $horario = $_POST['horario'];
 
-    // Atualiza cliente
     $sqlCliente = "UPDATE cliente
-                   SET nome = :nome,
-                       contato_cliente = :contato
+                   SET nome = :nome, contato_cliente = :contato
                    WHERE id_cliente = :idCliente";
 
     $stmtCliente = $pdo->prepare($sqlCliente);
@@ -49,7 +47,6 @@ if(isset($_POST['id_agendamento'])){
     $stmtCliente->bindParam(':idCliente', $idCliente);
     $stmtCliente->execute();
 
-    // Atualiza serviço
     $sqlServico = "UPDATE servicos
                    SET tipo_servico = :servico
                    WHERE id_servicos = :idServico";
@@ -59,10 +56,8 @@ if(isset($_POST['id_agendamento'])){
     $stmtServico->bindParam(':idServico', $idServico);
     $stmtServico->execute();
 
-    // Atualiza agendamento
     $sqlAgendamento = "UPDATE agendamento
-                       SET data_agen = :data,
-                           horario = :horario
+                       SET data_agen = :data, horario = :horario
                        WHERE id_agendamento = :idAgendamento";
 
     $stmtAgendamento = $pdo->prepare($sqlAgendamento);
@@ -133,12 +128,11 @@ if(isset($_POST['id_profissional'])){
     }
 }
 
-// Exclusão do agendamento
+// Excluir agendamento
 if(isset($_GET['excluir'])){
 
     $idAgendamento = $_GET['excluir'];
 
-    // Busca os IDs relacionados
     $sql = "SELECT id_cliente, id_servicos FROM agendamento WHERE id_agendamento = :id";
 
     $stmt = $pdo->prepare($sql);
@@ -151,21 +145,18 @@ if(isset($_GET['excluir'])){
         $idCliente = $dados['id_cliente'];
         $idServico = $dados['id_servicos'];
 
-        // Exclui o agendamento
         $sqlAgendamento = "DELETE FROM agendamento WHERE id_agendamento = :id";
 
         $stmtAgendamento = $pdo->prepare($sqlAgendamento);
         $stmtAgendamento->bindParam(':id', $idAgendamento);
         $stmtAgendamento->execute();
 
-        // Exclui o serviço
         $sqlServico = "DELETE FROM servicos WHERE id_servicos = :id";
 
         $stmtServico = $pdo->prepare($sqlServico);
         $stmtServico->bindParam(':id', $idServico);
         $stmtServico->execute();
 
-        // Exclui o cliente
         $sqlCliente = "DELETE FROM cliente WHERE id_cliente = :id";
 
         $stmtCliente = $pdo->prepare($sqlCliente);
@@ -176,7 +167,8 @@ if(isset($_GET['excluir'])){
     header("Location: ../frontend/admin/agendamentos.php");
     exit;
 }
-// Exclui o profissional
+
+// Excluir profissional
 if(isset($_GET['excluir_profissional'])){
 
     $id = $_GET['excluir_profissional'];
