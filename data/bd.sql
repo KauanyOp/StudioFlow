@@ -5,14 +5,14 @@ USE studioflow;
 CREATE TABLE cliente (
     id_cliente INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    contato_cliente VARCHAR(20) NOT NULL,
+    contato_cliente VARCHAR(11) NOT NULL,
     data_nasc DATE NOT NULL
 );
 
 CREATE TABLE profissional (
     id_profissional INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    contato_prof VARCHAR(20) NOT NULL,
+    contato_prof VARCHAR(11) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
     especialidade VARCHAR(255) NOT NULL,

@@ -67,7 +67,7 @@ $stmtServicos->execute();
     <div class="box-filter">
         <div class="filter">
             <label>Filtrar por Serviço</label>
-            <select name="servico">
+            <select name="servico" class=">
             <option value="">Todos os serviços</option>
             <?php while($servico = $stmtServicos->fetch()) { ?>
                 <option value="<?php echo $servico['tipo_servico']; ?>"

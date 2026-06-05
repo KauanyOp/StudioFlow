@@ -26,13 +26,13 @@
         <h2>Dados Pessoais</h2>
 
         <label>Nome Completo</label>
-        <input type="text" name="nome_cliente" id="nome_cliente" placeholder="Digite seu nome" required><br>
+        <input type="text" name="nome_cliente" id="nome_cliente" placeholder="Digite seu nome" minlength="3" maxlength="50" required><br>
 
         <label>Data de Nascimento:</label>
         <input type="date" name="data-nasc" id="data-nasc" required><br>
 
         <label>Contato</label>
-        <input type="text" name="contato" id="contato" placeholder="Telefone ou WhatsApp" required><br>
+        <input type="text" name="contato" id="contato" placeholder="Telefone ou WhatsApp" pattern="[0-9]{10,11}" minlength="10" maxlength="11" required><br>
 
         <button type="button" onclick="irParaTela2()">Próximo</button>
     </div>
@@ -48,10 +48,10 @@
         </select><br>
 
         <label>Região do Corpo</label>
-        <input type="text" name="regiao" id="regiao" placeholder="Região do corpo que deseja perfurar/tatuar"><br>
+        <input type="text" name="regiao" id="regiao" maxlength="20" placeholder="Região do corpo que deseja perfurar/tatuar"><br>
 
         <label>Quantidade</label>
-        <input type="number" name="qtd" id="qtd" max="99" placeholder="Insira a quantidade de tatuagens/perfurações deseja"><br>
+        <input type="number" name="qtd" id="qtd" min="1" max="10" placeholder="Insira a quantidade de tatuagens/perfurações deseja"><br>
 
         <!-- Campos específicos (Tatuagem) -->
         <div id="campos-tatuagem" style="display: none;">
@@ -103,12 +103,57 @@
 <script>
 
 function irParaTela2() {
+
+    const nome = document.getElementById("nome_cliente");
+    const dataNasc = document.getElementById("data-nasc");
+    const contato = document.getElementById("contato");
+
+    if (!nome.checkValidity()) {
+        nome.reportValidity();
+        return;
+    }
+
+    if (!dataNasc.checkValidity()) {
+        dataNasc.reportValidity();
+        return;
+    }
+
+    if (!contato.checkValidity()) {
+        contato.reportValidity();
+        return;
+    }
+
     document.getElementById("tela1").classList.remove("ativa");
     document.getElementById("tela2").classList.add("ativa");
-    document.getElementById("tela3").classList.remove("ativa");
 }
 
 function irParaTela3() {
+
+    const servico = document.getElementById("servico");
+    const regiao = document.getElementById("regiao");
+    const qtd = document.getElementById("qtd");
+    const estilo = document.getElementById("estilo");
+
+    if (!servico.checkValidity()) {
+        servico.reportValidity();
+        return;
+    }
+
+    if (!regiao.checkValidity()) {
+        regiao.reportValidity();
+        return;
+    }
+
+    if (!qtd.checkValidity()) {
+        qtd.reportValidity();
+        return;
+    }
+
+    if (servico.value === "tatuagem" && !estilo.value) {
+        estilo.reportValidity();
+        return;
+    }
+
     document.getElementById("tela1").classList.remove("ativa");
     document.getElementById("tela2").classList.remove("ativa");
     document.getElementById("tela3").classList.add("ativa");
@@ -131,15 +176,27 @@ const camposTatuagem = document.getElementById("campos-tatuagem");
 
 selectServico.addEventListener("change", () => {
 
+    const estilo = document.getElementById("estilo");
+
     if (selectServico.value === "tatuagem") {
         camposTatuagem.style.display = "block";
-    } 
-    
-    else {
+        estilo.required = true;
+    } else {
         camposTatuagem.style.display = "none";
+        estilo.required = false;
+        estilo.value = "";
     }
 
 });
+
+const hoje = new Date().toISOString().split("T")[0];
+document.getElementById("data-marcada").min = hoje;
+
+const dataLimite = new Date();
+dataLimite.setFullYear(dataLimite.getFullYear() - 18);
+
+document.getElementById("data-nasc").max =
+    dataLimite.toISOString().split("T")[0];
 
 </script>
 
