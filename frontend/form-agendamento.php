@@ -1,3 +1,21 @@
+<?php
+session_start();
+
+if (isset($_SESSION["erro"])) {
+    $msgs = [
+        2 => "Preencha todos os campos!",
+        4 => "Estilo obrigatório para tatuagem!",
+        5 => "Quantidade inválida!",
+        6 => "Horário já está ocupado!",
+        7 => "Contato inválido!",
+        8 => "Data inválida!"
+    ];
+
+    $msg = $msgs[$_SESSION["erro"]] ?? "Erro desconhecido";
+    echo "<script>alert('$msg');</script>";
+    unset($_SESSION["erro"]);
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -10,7 +28,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-
 <nav>
     <a href="index.php"><i class="fa-solid fa-arrow-left icone"></i></a>
     <a href="index.php">
@@ -19,7 +36,6 @@
 </nav>
 
 <main>
-
 <form action="../backend/agendar.php" method="POST">
 <input type="hidden" name="origem" value="cliente">
     <div id="tela1" class="tela ativa">
@@ -36,10 +52,8 @@
 
         <button type="button" onclick="irParaTela2()">Próximo</button>
     </div>
-
     <div id="tela2" class="tela">
         <h2>Serviço</h2>
-
         <label>Selecione o Serviço</label>
         <select id="servico" name="servico" required>
             <option value="" disabled selected>Selecione</option>
@@ -53,10 +67,8 @@
         <label>Quantidade</label>
         <input type="number" name="qtd" id="qtd" min="1" max="10" placeholder="Insira a quantidade de tatuagens/perfurações deseja"><br>
 
-        <!-- Campos específicos (Tatuagem) -->
         <div id="campos-tatuagem" style="display: none;">
             <label>Estilo de Tatuagem</label>
-
             <select id="estilo" name="estilo"><br>
                 <option value="" disabled selected>Selecione o estilo</option>
                 <option value="fineline">Fine Line</option>
@@ -69,13 +81,11 @@
                 <option value="cobertura">Cobertura</option>
             </select>
         </div>
-
-        <div>
+    <div>
             <button type="button" onclick="voltarTela1()">Voltar</button>
             <button type="button" onclick="irParaTela3()">Próximo</button>
         </div>
-    </div>
-
+        </div>
     <div id="tela3" class="tela">
         <h2>Agendamento</h2>
 
@@ -84,10 +94,7 @@
 
         <label>Selecione o Horário</label>
         <select id="horario" name="horario" required>
-            <option value="" disabled selected>Selecione</option>
-            <option value="09:00">09:00</option>
-            <option value="10:00">10:00</option>
-            <option value="11:00">11:00</option>
+          <option value="" disabled selected>Selecione uma data primeiro</option>
         </select>
 
         <div>
@@ -95,13 +102,10 @@
             <button type="submit">Enviar</button>
         </div>
     </div>
-
 </form>
-
 </main>
 
 <script>
-
 function irParaTela2() {
 
     const nome = document.getElementById("nome_cliente");
@@ -126,7 +130,6 @@ function irParaTela2() {
     document.getElementById("tela1").classList.remove("ativa");
     document.getElementById("tela2").classList.add("ativa");
 }
-
 function irParaTela3() {
 
     const servico = document.getElementById("servico");
@@ -158,13 +161,11 @@ function irParaTela3() {
     document.getElementById("tela2").classList.remove("ativa");
     document.getElementById("tela3").classList.add("ativa");
 }
-
 function voltarTela1() {
     document.getElementById("tela3").classList.remove("ativa");
     document.getElementById("tela2").classList.remove("ativa");
     document.getElementById("tela1").classList.add("ativa");
 }
-
 function voltarTela2() {
     document.getElementById("tela3").classList.remove("ativa");
     document.getElementById("tela2").classList.add("ativa");
@@ -186,7 +187,6 @@ selectServico.addEventListener("change", () => {
         estilo.required = false;
         estilo.value = "";
     }
-
 });
 
 const hoje = new Date().toISOString().split("T")[0];
@@ -198,7 +198,45 @@ dataLimite.setFullYear(dataLimite.getFullYear() - 18);
 document.getElementById("data-nasc").max =
     dataLimite.toISOString().split("T")[0];
 
-</script>
+const horariosDisponiveis = [
+    "09:00",
+    "09:30",
+    "10:00",
+    "10:30",
+    "11:00",
+    "11:30",
+    "12:00",
+    "13:00",
+    "13:30",
+    "14:00",
+    "14:30",
+    "15:00",
+    "15:30",
+    "16:00",
+    "16:30",
+    "17:00",
+    "17:30"
+];
 
+document.getElementById("data-marcada").addEventListener("change", function() {
+    const data = this.value;
+
+    fetch(`../backend/validar-horario.php?data=${data}`)
+        .then(response => response.json())
+        .then(horariosOcupados => {
+
+            const select = document.getElementById("horario");
+            select.innerHTML =
+                '<option value="" disabled selected>Selecione</option>';
+            horariosDisponiveis.forEach(horario => {
+                if (!horariosOcupados.includes(horario)) {
+
+                select.innerHTML +=
+                    `<option value="${horario}">${horario}</option>`;
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

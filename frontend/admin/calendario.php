@@ -1,6 +1,6 @@
 <?php
- //Inicia sessão, verifica se existe usuario logado e abrevia o nome do usuario
 session_start();
+
   $nomeCompleto = $_SESSION["nome"];
   $primeiroNome = strtok($nomeCompleto, " ");
   if(!$_SESSION["logado"]){

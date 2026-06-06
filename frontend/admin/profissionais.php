@@ -1,6 +1,13 @@
 <?php require_once '../../backend/conexao.php';
 //Seleciona os campos no banco
-$sql = "SELECT profissional.id_profissional, profissional.nome, profissional.contato_prof, profissional.especialidade, profissional.status_profissional FROM profissional";
+$sql = "SELECT
+       profissional.id_profissional,
+       profissional.nome,
+       profissional.contato_prof,
+       profissional.especialidade,
+       profissional.status_profissional
+       FROM profissional";
+
 //$stmt = statement(instrução do sql)
 $stmt = $pdo->prepare($sql);
 $stmt->execute();

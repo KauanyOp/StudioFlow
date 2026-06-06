@@ -2,11 +2,17 @@
 require_once '../../backend/conexao.php';
 
 $sql = "SELECT
-agendamento.id_agendamento, cliente.nome, cliente.contato_cliente, servicos.tipo_servico,
-agendamento.data_agen, agendamento.horario, agendamento.status_agendamento
+    agendamento.id_agendamento,
+    cliente.nome,
+    cliente.contato_cliente,
+    servicos.tipo_servico,
+    agendamento.data_agen,
+    agendamento.horario,
+    agendamento.status_agendamento
 
-FROM agendamento INNER JOIN cliente ON agendamento.id_cliente = cliente.id_cliente INNER JOIN servicos ON agendamento.id_servicos = servicos.id_servicos
-WHERE agendamento.status_agendamento IN ('finalizado','cancelado')";
+    FROM agendamento INNER JOIN cliente ON agendamento.id_cliente = cliente.id_cliente
+    INNER JOIN servicos ON agendamento.id_servicos = servicos.id_servicos
+    WHERE agendamento.status_agendamento IN ('finalizado','cancelado')";
 
 $params = [];
 
@@ -94,30 +100,30 @@ $stmtServicos->execute();
         </div>
     </div>
 </form>
-        <table>
-            <thead>
-                <tr>
-                    <th>Cliente</th>
-                    <th>Serviço</th>
-                    <th>Data</th>
-                    <th>Horário</th>
-                    <th>Contato</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-              <?php while($row = $stmt->fetch()) { ?>
-              <tr>
-                <td><?php echo htmlspecialchars($row['nome']); ?></td>
-                <td><?php echo ucfirst(htmlspecialchars($row['tipo_servico'])); ?></td>
-                <td><?php echo date('d/m/Y', strtotime($row['data_agen'])); ?></td>
-                <td><?php echo date('H:i', strtotime($row['horario'])); ?></td>
-                <td><?php echo htmlspecialchars($row['contato_cliente']); ?></td>
-                <td><?php echo ucfirst(htmlspecialchars($row['status_agendamento'])); ?></td>
-              </tr>
-              <?php } ?>
-         </tbody>
-        </table>
+ <table>
+     <thead>
+         <tr>
+            <th>Cliente</th>
+            <th>Serviço</th>
+            <th>Data</th>
+            <th>Horário</th>
+            <th>Contato</th>
+            <th>Status</th>
+         </tr>
+     </thead>
+     <tbody>
+       <?php while($row = $stmt->fetch()) { ?>
+       <tr>
+         <td><?php echo htmlspecialchars($row['nome']); ?></td>
+         <td><?php echo ucfirst(htmlspecialchars($row['tipo_servico'])); ?></td>
+         <td><?php echo date('d/m/Y', strtotime($row['data_agen'])); ?></td>
+         <td><?php echo date('H:i', strtotime($row['horario'])); ?></td>
+         <td><?php echo htmlspecialchars($row['contato_cliente']); ?></td>
+         <td><?php echo ucfirst(htmlspecialchars($row['status_agendamento'])); ?></td>
+       </tr>
+       <?php } ?>
+  </tbody>
+ </table>
 </main>
 </body>
 </html>
