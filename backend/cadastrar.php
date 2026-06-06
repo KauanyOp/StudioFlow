@@ -5,15 +5,14 @@ require_once "conexao.php";
 $nome = trim($_POST["nome"]);
 $email = trim($_POST["email"]);
 $contato_prof = trim($_POST["contato_prof"]);
-$entidade = trim($_POST["entidade"]);
-$especialidade = trim($_POST["especialidade"] ?? "");
+$especialidade = trim($_POST["especialidade"]);
 $senha = trim($_POST["senha"]);
 
 if (
     $nome === "" ||
     $email === "" ||
     $contato_prof === "" ||
-    $entidade === "" ||
+    $especialidade === "" ||
     $senha === ""
 ) {
     $_SESSION["erro"] = 2;
@@ -23,12 +22,6 @@ if (
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $_SESSION["erro"] = 3;
-    header("Location: ../frontend/cadastro.php");
-    exit;
-}
-
-if ($entidade === "profissional" && $especialidade === "") {
-    $_SESSION["erro"] = 4;
     header("Location: ../frontend/cadastro.php");
     exit;
 }
@@ -59,7 +52,6 @@ $insert->execute([
 ]);
 
 $_SESSION["sucesso"] = 1;
-
 header("Location: ../frontend/login.php");
 exit;
 ?>

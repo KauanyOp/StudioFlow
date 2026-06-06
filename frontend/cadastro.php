@@ -21,19 +21,12 @@
         <label>Nome Completo</label>
         <input type="text" name="nome" id="nome" placeholder="Digite seu nome" required>
         <label>Contato</label>
-        <input type="text" name="contato_prof" id="contato_prof" placeholder="Telefone ou WhatsApp" required>
+        <input type="text" name="contato_prof" id="contato_prof" placeholder="Telefone ou WhatsApp" pattern="[0-9]{10,11}" minlength="10" maxlength="11" required>
         <label>Email</label>
         <input type="email" name="email" id="email" placeholder="Digite seu email" required>
-        <label>Tipo de Conta</label>
-        <select id="entidade" name="entidade" required>
-          <option value="" disabled selected>Selecione o tipo de conta</option>
-          <option value="profissional">Profissional</option>
-          <option value="studio">Estúdio</option>
-        </select>
         <!-- Campos específicos (Profissional) -->
-        <div id="campos-profissional" style="display: none;">
           <label>Especialidade</label>
-          <select id="especialidade" name="especialidade">
+          <select id="especialidade" name="especialidade" required>
             <option value="" disabled selected>Selecione a sua especialidade</option>
             <option value="piercing">Piercing</option>
             <option value="fineline">Fine Line</option>
@@ -45,25 +38,10 @@
             <option value="anime">Anime</option>
             <option value="cobertura">Cobertura</option>
           </select>
-        </div>
         <label>Senha</label>
         <input type="password" name="senha" id="senha" placeholder="Digite sua senha" required>
         <button type="submit">Enviar</button>
     </form>
 </main>
-
-<script>
-const selectEntidade = document.getElementById("entidade");
-const camposProfissional = document.getElementById("campos-profissional");
-
-selectEntidade.addEventListener("change", () => {
-  if (selectEntidade.value === "profissional") {
-    camposProfissional.style.display = "block";
-  } else {
-    camposProfissional.style.display = "none";
-  }
-});
-</script>
-
 </body>
 </html>

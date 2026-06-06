@@ -83,25 +83,9 @@
         <button type="submit">Enviar</button>
     </form>
 </main>
-
-<script>
-const selectEntidade = document.getElementById("entidade");
-const camposProfissional = document.getElementById("campos-profissional");
-
-selectEntidade.addEventListener("change", () => {
-  if (selectEntidade.value === "profissional") {
-    camposProfissional.style.display = "block";
-  } else {
-    camposProfissional.style.display = "none";
-  }
-});
-</script>
-
 </body>
 </html>
-
     </form>
 </main>
-
 </body>
 </html>

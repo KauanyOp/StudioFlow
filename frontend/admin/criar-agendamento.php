@@ -40,7 +40,7 @@ if (isset($_SESSION["erro"])) {
         <input type="date" name="data-nasc" id="data-nasc" required><br>
 
         <label>Contato</label>
-        <input type="text" name="contato" id="contato" placeholder="Telefone ou WhatsApp" required><br>
+        <input type="text" name="contato" id="contato" placeholder="Telefone ou WhatsApp" pattern="[0-9]{10,11}" minlength="10" maxlength="11" required><br>
         <button type="button" onclick="irParaTela2()">Próximo</button>
     </div>
     <div id="tela2" class="tela">
