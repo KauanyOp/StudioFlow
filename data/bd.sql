@@ -42,39 +42,3 @@ CREATE TABLE agendamento (
     FOREIGN KEY (id_servicos) REFERENCES servicos(id_servicos)
 );
 
-/*INSERTS*/
-
--- ADMIN
-INSERT INTO profissional (nome, contato_prof, email, senha, especialidade, status_profissional) VALUES
-('Admin', '11987546321 ', 'admin@studioflow.com', 'admin123', 'Administrador', 'ativo');
-
--- CLIENTES
-INSERT INTO cliente (nome, contato_cliente, data_nasc) VALUES
-('Davi Xavier', '11954321098', '1997-01-18'),
-('Giovanna Rodrigues', '11921098765', '1999-12-20'),
-('Kauany Oliveira', '11877665544', '1998-10-03'),
-('Paulo Henrique', '11722110099', '1994-11-29');
-
-
--- PROFISSIONAIS
-INSERT INTO profissional (nome, contato_prof, email, senha, especialidade, status_profissional) VALUES
-('Carlos Ink', '11990001111', 'carlos@studioflow.com', '123456', 'Realismo', 'ativo'),
-('Julia Tattoo', '11990002222', 'julia@studioflow.com', '123456', 'Fineline', 'ativo'),
-('Marcos Piercer', '11990003333', 'marcos@studioflow.com', '123456', 'Piercing Corporal', 'ativo'),
-('Fernanda Art', '11990004444', 'fernanda@studioflow.com', '123456', 'Anime', 'ativo');
-
--- SERVIÇOS
-INSERT INTO servicos (tipo_servico, estilo, regiao, quantidade) VALUES
-('tatuagem', 'fineline', 'Antebraço', 1),
-('tatuagem', 'realista', 'Costas', 1),
-('piercing', NULL, 'Orelha', 2),
-('tatuagem', 'anime', 'Braço', 1);
-
--- AGENDAMENTOS
-INSERT INTO agendamento
-(id_cliente, id_profissional, id_servicos, data_agen, horario, status_agendamento)
-VALUES
-(1, 2, 1, '2026-06-01', '10:00:00', 'confirmado'),
-(2, 1, 2, '2026-06-02', '14:00:00', 'pendente'),
-(3, 3, 3, '2026-06-03', '11:00:00', 'confirmado'),
-(4, 4, 4, '2026-06-04', '15:00:00', 'finalizado');
